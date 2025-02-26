@@ -1,0 +1,12 @@
+#gameBoard {
+    height: 640px;
+    width: 640px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.square {
+    height: 80px;
+    width: 80px;
+    background-color: rgb(42, 165, 128);
+}
