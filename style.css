@@ -1,3 +1,7 @@
+body {
+    background-color: rgb(81, 80, 76, 1);
+}
+
 #gameBoard {
     height: 640px;
     width: 640px;
@@ -8,5 +12,12 @@
 .square {
     height: 80px;
     width: 80px;
-    background-color: rgb(42, 165, 128);
+}
+
+.light-square {
+    background-color: rgb(184, 135, 98, 1);
+}
+
+.dark-square {
+    background-color: rgb(237, 214, 176, 1);
 }
