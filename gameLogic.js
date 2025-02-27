@@ -27,6 +27,14 @@ function createBoard() {
         const square = document.createElement('div');
         square.classList.add("square");
         square.innerHTML = piece;
+        if (square_id<16) {
+            square.firstChild.classList.add('black')
+            square.firstChild.firstChild.classList.add('player-black')
+        }
+        if (square_id>=48) {
+            square.firstChild.classList.add('white')
+            square.firstChild.firstChild.classList.add('player-white')
+        }
         square.setAttribute('square_id', square_id);
         addSquareColor(square, isOddLine, square_id);
         gameBoard.append(square);
