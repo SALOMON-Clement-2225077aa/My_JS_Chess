@@ -161,7 +161,6 @@ function getPieceLegalMoves(gameBoard, square_id) {
             }
         }
         // move down
-        var numRow = Math.floor(square_id/8);
         var tempPosition = square_id;
         while (numRow+1 <= 7) {
             var squareContent = getContentOfSquare(gameBoard, tempPosition+8);
@@ -182,6 +181,77 @@ function getPieceLegalMoves(gameBoard, square_id) {
     // -----
     // KNIGHT :
     else if (pieceId == "knight") {
+        var numRow = Math.floor(square_id/8);
+        var numColumn = square_id%8;
+
+        // UP-UP-LEFT & UP-UP-RIGHT
+        if(numRow>=2) {
+            // left
+            if(numColumn>=1) {
+                var squareContent = getContentOfSquare(gameBoard, square_id-17);
+                if(squareContent == null || squareContent.team != pieceTeam) {
+                    legalMoves.push(square_id-17);
+                }
+            }
+            // right
+            if(numColumn<=6) {
+                var squareContent = getContentOfSquare(gameBoard, square_id-15);
+                if(squareContent == null || squareContent.team != pieceTeam) {
+                    legalMoves.push(square_id-15);
+                }
+            }
+        }
+        // LEFT-LEFT-UP & RIGHT-RIGHT-UP
+        if(numRow>=1) {
+            // left
+            if(numColumn>=2) {
+                var squareContent = getContentOfSquare(gameBoard, square_id-10);
+                if(squareContent == null || squareContent.team != pieceTeam) {
+                    legalMoves.push(square_id-10);
+                }
+            }
+            // right
+            if(numColumn<=5) {
+                var squareContent = getContentOfSquare(gameBoard, square_id-6);
+                if(squareContent == null || squareContent.team != pieceTeam) {
+                    legalMoves.push(square_id-6);
+                }
+            }
+        }
+        // LEFT-LEFT-DOWN & RIGHT-RIGHT-DOWN
+        if(numRow<=6) {
+            // left
+            if(numColumn>=2) {
+                var squareContent = getContentOfSquare(gameBoard, square_id+6);
+                if(squareContent == null || squareContent.team != pieceTeam) {
+                    legalMoves.push(square_id+6);
+                }
+            }
+            // right
+            if(numColumn<=5) {
+                var squareContent = getContentOfSquare(gameBoard, square_id+10);
+                if(squareContent == null || squareContent.team != pieceTeam) {
+                    legalMoves.push(square_id+10);
+                }
+            }
+        }
+        // DOWN-DOWN-LEFT & DOWN-DOWN-RIGHT
+        if(numRow<=5) {
+            // left
+            if(numColumn>=1) {
+                var squareContent = getContentOfSquare(gameBoard, square_id+15);
+                if(squareContent == null || squareContent.team != pieceTeam) {
+                    legalMoves.push(square_id+15);
+                }
+            }
+            // right
+            if(numColumn<=6) {
+                var squareContent = getContentOfSquare(gameBoard, square_id+17);
+                if(squareContent == null || squareContent.team != pieceTeam) {
+                    legalMoves.push(square_id+17);
+                }
+            }
+        }
     }
     
     // -----
