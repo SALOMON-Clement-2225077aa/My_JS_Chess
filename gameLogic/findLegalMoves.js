@@ -1,15 +1,3 @@
-// Display the legals moves on the gameBoard
-// --------------------
-// | SHOW LEGAL MOVES |
-// --------------------
-function showLegalMoves(gameBoard, clickedSquare) {
-    var square_id = parseInt(clickedSquare.getAttribute("square_id"), 10);
-    var listLegalMoves = getPieceLegalMoves(gameBoard, square_id);
-
-    console.log("possible moves:",listLegalMoves);
-    // TODO -> display the legals moves on the gameBoard
-}
-
 // Input  --> gameBoard & squareId
 // Output --> Info on the piece inside (either "null" or "{ name, team }")
 // -------------------------
@@ -44,8 +32,7 @@ function getPieceLegalMoves(gameBoard, square_id) {
     var pieceId = pieceDiv.id;
     var pieceTeam = pieceDiv.className.slice(6);
     var legalMoves = [];
-    console.log(pieceTeam,pieceId,":",square_id)
-
+    
     // -----
     // PAWNS :
     // -----

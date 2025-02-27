@@ -5,6 +5,7 @@ const gameBoard = document.querySelector('#gameBoard');
 const coordinatesBox = document.querySelector('#coordinatesBox');
 var lastSquareHiglighted = null;
 var listSquareSelected = [];
+var listLegalMovesDisplayed = [];
 
 const startBoard = [
     rook, knight, bishop, queen, king, bishop, knight, rook,
@@ -106,6 +107,7 @@ function leftClickOnSquare(e) {
     pieceInside = clickedSquare.firstChild;
     highlightSquare(clickedSquare);
     removeSelectedSquares();
+    hidePreviousLegalMoves();
     showLegalMoves(gameBoard,clickedSquare);
 }
 
@@ -153,6 +155,27 @@ function removeSelectedSquares() {
     }
 }
 
+// ---
+// Functions to display/hide the legals moves on the gameBoard
+// ---
+function showLegalMoves(gameBoard, clickedSquare) {
+    var square_id = parseInt(clickedSquare.getAttribute("square_id"), 10);
+    var listLegalMoves = getPieceLegalMoves(gameBoard, square_id);
+    listLegalMoves.forEach(legalMove => {
+        const square = gameBoard.querySelector(`[square_id="${legalMove}"]`);
+        if(lastSquareHiglighted != null) {
+        square.classList.add("possibleMove");
+        listLegalMovesDisplayed.push(square);
+        }
+    });
+}
+
+function hidePreviousLegalMoves() {
+    for (let i = listLegalMovesDisplayed.length - 1; i >= 0; i--) {
+        listLegalMovesDisplayed[i].classList.remove("possibleMove");
+        listLegalMovesDisplayed.splice(i, 1);
+    }
+}
 
 // ---
 //  Call the functions to create the board
