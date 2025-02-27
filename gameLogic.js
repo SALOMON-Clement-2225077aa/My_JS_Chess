@@ -6,14 +6,14 @@ const gameBoard = document.querySelector('#gameBoard');
 const coordinatesBox = document.querySelector('#coordinatesBox');
 
 const startBoard = [
-    "B_rook", "B_Knight", "B_Bishop", "B_Queen", "B_King", "B_Bishop", "B_Knight", "B_rook",
-    "B_pawn", "B_pawn"  , "B_pawn"  , "B_pawn" , "B_pawn", "B_pawn"  , "B_pawn"  , "B_pawn",
-    ""      ,  ""       ,  ""       ,  ""      ,  ""     ,  ""       ,  ""       ,  ""     ,
-    ""      ,  ""       ,  ""       ,  ""      ,  ""     ,  ""       ,  ""       ,  ""     ,
-    ""      ,  ""       ,  ""       ,  ""      ,  ""     ,  ""       ,  ""       ,  ""     ,
-    ""      ,  ""       ,  ""       ,  ""      ,  ""     ,  ""       ,  ""       ,  ""     ,
-    "W_pawn", "W_pawn"  , "W_pawn"  , "W_pawn" , "W_pawn", "W_pawn"  , "W_pawn"  , "W_pawn",
-    "W_rook", "W_Knight", "W_Bishop", "W_Queen", "W_King", "W_Bishop", "W_Knight", "W_rook",
+    rook, knight, bishop, queen, king, bishop, knight, rook,
+    pawn, pawn,   pawn,   pawn,  pawn, pawn,   pawn,   pawn,
+    "",   "",     "",     "",    "" ,  "",     "",     "",
+    "",   "",     "",     "",    "" ,  "",     "",     "",
+    "",   "",     "",     "",    "" ,  "",     "",     "",
+    "",   "",     "",     "",    "" ,  "",     "",     "",
+    pawn, pawn,   pawn,   pawn,  pawn, pawn,   pawn,   pawn,
+    rook, knight, bishop, queen, king, bishop, knight, rook,
 ]
 
 // ---
@@ -23,9 +23,10 @@ const startBoard = [
 function createBoard() {
     var square_id = 0;
     var isOddLine = true;
-    startBoard.forEach(tile => {
+    startBoard.forEach(piece => {
         const square = document.createElement('div');
         square.classList.add("square");
+        square.innerHTML = piece;
         square.setAttribute('square_id', square_id);
         addSquareColor(square, isOddLine, square_id);
         gameBoard.append(square);

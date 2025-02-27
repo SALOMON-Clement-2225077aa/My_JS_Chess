@@ -57,3 +57,17 @@ html {
     margin-bottom: 10px;
     width: 125px;
 }
+
+/* Pieces */
+.piece {
+    height: 80px;
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.piece svg {
+    width: 60px;
+    height: 60px;
+}
