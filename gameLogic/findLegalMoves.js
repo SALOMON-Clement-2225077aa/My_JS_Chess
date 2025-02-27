@@ -110,13 +110,13 @@ function getPieceLegalMoves(gameBoard, square_id) {
     // ROOK :
     else if (pieceId == "rook") {
         // move left
-        var numColumn = square_id%8;
+        var tempNumColumn = square_id%8;
         var tempPosition = square_id;
-        while (numColumn-1 >= 0) {
+        while (tempNumColumn-1 >= 0) {
             var squareContent = getContentOfSquare(gameBoard, tempPosition-1);
             if(squareContent == null) {
                 legalMoves.push(tempPosition-1);
-                --numColumn;
+                --tempNumColumn;
                 --tempPosition;
             }
             else {
@@ -127,13 +127,13 @@ function getPieceLegalMoves(gameBoard, square_id) {
             }
         }
         // move right
-        var numColumn = square_id%8;
+        var tempNumColumn = square_id%8;
         var tempPosition = square_id;
-        while (numColumn+1 <= 7) {
+        while (tempNumColumn+1 <= 7) {
             var squareContent = getContentOfSquare(gameBoard, tempPosition+1);
             if(squareContent == null) {
                 legalMoves.push(tempPosition+1);
-                ++numColumn;
+                ++tempNumColumn;
                 ++tempPosition;
             }
             else {
@@ -161,6 +161,7 @@ function getPieceLegalMoves(gameBoard, square_id) {
             }
         }
         // move down
+        var numRow = Math.floor(square_id/8);
         var tempPosition = square_id;
         while (numRow+1 <= 7) {
             var squareContent = getContentOfSquare(gameBoard, tempPosition+8);
@@ -257,6 +258,82 @@ function getPieceLegalMoves(gameBoard, square_id) {
     // -----
     // BISHOP :
     else if (pieceId == "bishop") {
+        // move up left
+        var tempNumColumn = square_id%8;
+        var tempNumRow = Math.floor(square_id/8);
+        var tempPosition = square_id;
+        while (tempNumColumn-1 >= 0 && tempNumRow-1 >=0) {
+            var squareContent = getContentOfSquare(gameBoard, tempPosition-9);
+            if(squareContent == null) {
+                legalMoves.push(tempPosition-9);
+                --tempNumColumn;
+                --tempNumRow;
+                tempPosition-=9;
+            }
+            else {
+                if(squareContent.team != pieceTeam) {
+                    legalMoves.push(tempPosition-9);
+                }
+                break;
+            }
+        }
+        // move up right
+        var tempNumColumn = square_id%8;
+        var tempNumRow = Math.floor(square_id/8);
+        var tempPosition = square_id;
+        while (tempNumColumn+1 <= 7 && tempNumRow-1 >=0) {
+            var squareContent = getContentOfSquare(gameBoard, tempPosition-7);
+            if(squareContent == null) {
+                legalMoves.push(tempPosition-7);
+                ++tempNumColumn;
+                --tempNumRow;
+                tempPosition-=7;
+            }
+            else {
+                if(squareContent.team != pieceTeam) {
+                    legalMoves.push(tempPosition-7);
+                }
+                break;
+            }
+        }
+        // move down left
+        var tempNumColumn = square_id%8;
+        var tempNumRow = Math.floor(square_id/8);
+        var tempPosition = square_id;
+        while (tempNumColumn-1 >= 0 && tempNumRow+1 <=7) {
+            var squareContent = getContentOfSquare(gameBoard, tempPosition+7);
+            if(squareContent == null) {
+                legalMoves.push(tempPosition+7);
+                --tempNumColumn;
+                ++tempNumRow;
+                tempPosition+=7;
+            }
+            else {
+                if(squareContent.team != pieceTeam) {
+                    legalMoves.push(tempPosition+7);
+                }
+                break;
+            }
+        }
+        // move down right
+        var tempNumColumn = square_id%8;
+        var tempNumRow = Math.floor(square_id/8);
+        var tempPosition = square_id;
+        while (tempNumColumn+1 <= 7 && tempNumRow+1 <=7) {
+            var squareContent = getContentOfSquare(gameBoard, tempPosition+9);
+            if(squareContent == null) {
+                legalMoves.push(tempPosition+9);
+                ++tempNumColumn;
+                ++tempNumRow;
+                tempPosition+=9;
+            }
+            else {
+                if(squareContent.team != pieceTeam) {
+                    legalMoves.push(tempPosition+9);
+                }
+                break;
+            }
+        }
     }
     
     // -----
