@@ -1,4 +1,7 @@
 // Display the legals moves on the gameBoard
+// --------------------
+// | SHOW LEGAL MOVES |
+// --------------------
 function showLegalMoves(gameBoard, clickedSquare) {
     var square_id = parseInt(clickedSquare.getAttribute("square_id"), 10);
     var listLegalMoves = getPieceLegalMoves(gameBoard, square_id);
@@ -9,6 +12,9 @@ function showLegalMoves(gameBoard, clickedSquare) {
 
 // Input  --> gameBoard & squareId
 // Output --> Info on the piece inside (either "null" or "{ name, team }")
+// -------------------------
+// | GET CONTENT OF SQUARE |
+// -------------------------
 function getContentOfSquare(gameBoard, square_id) {
     const square = gameBoard.querySelector(`[square_id="${square_id}"]`);
     const piece = square.querySelector(".piece");
@@ -28,6 +34,9 @@ function getContentOfSquare(gameBoard, square_id) {
 
 // Input  --> gameBoard & squareId
 // Output --> a list of every square the piece inside that can go
+// -------------------------
+// | GET PIECE LEGAL MOVES |
+// -------------------------
 function getPieceLegalMoves(gameBoard, square_id) {
     const square = gameBoard.querySelector(`[square_id="${square_id}"]`);
     var pieceDiv = square.firstChild;
@@ -39,6 +48,7 @@ function getPieceLegalMoves(gameBoard, square_id) {
 
     // -----
     // PAWNS :
+    // -----
     if (pieceId == "pawn") {
         // ---
         // for white :
@@ -65,12 +75,12 @@ function getPieceLegalMoves(gameBoard, square_id) {
                     legalMoves.push(square_id-7);
                 }
             }
-            // TODO : en passant
+            // TODO -> en passant
             if(false) {
 
             }
-            // Caution : if the pawn is on the last row it transforms
-            // Caution : the pawn cannot move if it puts the king in danger
+            // TODO -> if the pawn is on the last row it transforms
+            // TODO -> the piece cannot move if it puts the king in danger
         }
         // ---
         // for black :
@@ -97,17 +107,18 @@ function getPieceLegalMoves(gameBoard, square_id) {
                     legalMoves.push(square_id+7);
                 }
             }
-            // TODO : en passant
+            // TODO -> en passant
             if(false) {
 
             }
-            // Caution : if the pawn is on the last row it transforms
-            // Caution : the pawn cannot move if it puts the king in danger
+            // TODO -> if the pawn is on the last row it transforms
+            // TODO -> the piece cannot move if it puts the king in danger
         }
     }
 
     // -----
     // ROOK :
+    // -----
     else if (pieceId == "rook") {
         // move left
         var tempNumColumn = square_id%8;
@@ -181,10 +192,10 @@ function getPieceLegalMoves(gameBoard, square_id) {
     
     // -----
     // KNIGHT :
+    // -----
     else if (pieceId == "knight") {
         var numRow = Math.floor(square_id/8);
         var numColumn = square_id%8;
-
         // UP-UP-LEFT & UP-UP-RIGHT
         if(numRow>=2) {
             // left
@@ -257,6 +268,7 @@ function getPieceLegalMoves(gameBoard, square_id) {
     
     // -----
     // BISHOP :
+    // -----
     else if (pieceId == "bishop") {
         // move up left
         var tempNumColumn = square_id%8;
@@ -338,12 +350,228 @@ function getPieceLegalMoves(gameBoard, square_id) {
     
     // -----
     // QUEEN :
+    // -----
     else if (pieceId == "queen") {
+        // ---
+        // Rook moves :
+        // ---
+        // move left
+        var tempNumColumn = square_id%8;
+        var tempPosition = square_id;
+        while (tempNumColumn-1 >= 0) {
+            var squareContent = getContentOfSquare(gameBoard, tempPosition-1);
+            if(squareContent == null) {
+                legalMoves.push(tempPosition-1);
+                --tempNumColumn;
+                --tempPosition;
+            }
+            else {
+                if(squareContent.team != pieceTeam) {
+                    legalMoves.push(tempPosition-1);
+                }
+                break;
+            }
+        }
+        // move right
+        var tempNumColumn = square_id%8;
+        var tempPosition = square_id;
+        while (tempNumColumn+1 <= 7) {
+            var squareContent = getContentOfSquare(gameBoard, tempPosition+1);
+            if(squareContent == null) {
+                legalMoves.push(tempPosition+1);
+                ++tempNumColumn;
+                ++tempPosition;
+            }
+            else {
+                if(squareContent.team != pieceTeam) {
+                    legalMoves.push(tempPosition+1);
+                }
+                break;
+            }
+        }
+        // move up
+        var numRow = Math.floor(square_id/8);
+        var tempPosition = square_id;
+        while (numRow-1 >= 0) {
+            var squareContent = getContentOfSquare(gameBoard, tempPosition-8);
+            if(squareContent == null) {
+                legalMoves.push(tempPosition-8);
+                --numRow;
+                tempPosition -= 8;
+            }
+            else {
+                if(squareContent.team != pieceTeam) {
+                    legalMoves.push(tempPosition-8);
+                }
+                break;
+            }
+        }
+        // move down
+        var numRow = Math.floor(square_id/8);
+        var tempPosition = square_id;
+        while (numRow+1 <= 7) {
+            var squareContent = getContentOfSquare(gameBoard, tempPosition+8);
+            if(squareContent == null) {
+                legalMoves.push(tempPosition+8);
+                ++numRow;
+                tempPosition += 8;
+            }
+            else {
+                if(squareContent.team != pieceTeam) {
+                    legalMoves.push(tempPosition+8);
+                }
+                break;
+            }
+        }
+        // ---
+        // Bishop moves
+        // ---
+        // move up left
+        var tempNumColumn = square_id%8;
+        var tempNumRow = Math.floor(square_id/8);
+        var tempPosition = square_id;
+        while (tempNumColumn-1 >= 0 && tempNumRow-1 >=0) {
+            var squareContent = getContentOfSquare(gameBoard, tempPosition-9);
+            if(squareContent == null) {
+                legalMoves.push(tempPosition-9);
+                --tempNumColumn;
+                --tempNumRow;
+                tempPosition-=9;
+            }
+            else {
+                if(squareContent.team != pieceTeam) {
+                    legalMoves.push(tempPosition-9);
+                }
+                break;
+            }
+        }
+        // move up right
+        var tempNumColumn = square_id%8;
+        var tempNumRow = Math.floor(square_id/8);
+        var tempPosition = square_id;
+        while (tempNumColumn+1 <= 7 && tempNumRow-1 >=0) {
+            var squareContent = getContentOfSquare(gameBoard, tempPosition-7);
+            if(squareContent == null) {
+                legalMoves.push(tempPosition-7);
+                ++tempNumColumn;
+                --tempNumRow;
+                tempPosition-=7;
+            }
+            else {
+                if(squareContent.team != pieceTeam) {
+                    legalMoves.push(tempPosition-7);
+                }
+                break;
+            }
+        }
+        // move down left
+        var tempNumColumn = square_id%8;
+        var tempNumRow = Math.floor(square_id/8);
+        var tempPosition = square_id;
+        while (tempNumColumn-1 >= 0 && tempNumRow+1 <=7) {
+            var squareContent = getContentOfSquare(gameBoard, tempPosition+7);
+            if(squareContent == null) {
+                legalMoves.push(tempPosition+7);
+                --tempNumColumn;
+                ++tempNumRow;
+                tempPosition+=7;
+            }
+            else {
+                if(squareContent.team != pieceTeam) {
+                    legalMoves.push(tempPosition+7);
+                }
+                break;
+            }
+        }
+        // move down right
+        var tempNumColumn = square_id%8;
+        var tempNumRow = Math.floor(square_id/8);
+        var tempPosition = square_id;
+        while (tempNumColumn+1 <= 7 && tempNumRow+1 <=7) {
+            var squareContent = getContentOfSquare(gameBoard, tempPosition+9);
+            if(squareContent == null) {
+                legalMoves.push(tempPosition+9);
+                ++tempNumColumn;
+                ++tempNumRow;
+                tempPosition+=9;
+            }
+            else {
+                if(squareContent.team != pieceTeam) {
+                    legalMoves.push(tempPosition+9);
+                }
+                break;
+            }
+        }
     }
     
     // -----
     // KING :
+    // -----
     else if (pieceId == "king") {
+        var numRow = Math.floor(square_id/8);
+        var numColumn = square_id%8;
+        // ---
+        // THE 3 UPS
+        if(numRow>=1) {
+            // up left
+            if(numColumn>=1) {
+                var squareContent = getContentOfSquare(gameBoard, square_id-9);
+                if(squareContent == null || squareContent.team != pieceTeam) {
+                    legalMoves.push(square_id-9);
+                }
+            }
+            // up
+            var squareContent = getContentOfSquare(gameBoard, square_id-8);
+            if(squareContent == null || squareContent.team != pieceTeam) {
+                legalMoves.push(square_id-8);
+            }
+            // up right
+            if(numColumn<=6) {
+                var squareContent = getContentOfSquare(gameBoard, square_id-7);
+                if(squareContent == null || squareContent.team != pieceTeam) {
+                    legalMoves.push(square_id-7);
+                }
+            }
+        }
+        // ---
+        // THE 2 MIDS
+        // -
+        // left
+        if(numColumn>=1) {
+            var squareContent = getContentOfSquare(gameBoard, square_id-1);
+            if(squareContent == null || squareContent.team != pieceTeam) {
+                legalMoves.push(square_id-1);
+            }
+        }
+        if(numColumn<=6) {
+            var squareContent = getContentOfSquare(gameBoard, square_id+1);
+            if(squareContent == null || squareContent.team != pieceTeam) {
+                legalMoves.push(square_id+1);
+            }
+        }
+        // ---
+        // THE 3 DOWNS
+        if(numRow<=6) {
+            // down left
+            if(numColumn>=1) {
+                var squareContent = getContentOfSquare(gameBoard, square_id+7);
+                if(squareContent == null || squareContent.team != pieceTeam) {
+                    legalMoves.push(square_id+7);
+                }
+            }
+            // down
+            var squareContent = getContentOfSquare(gameBoard, square_id+8);
+            if(squareContent == null || squareContent.team != pieceTeam) {
+                legalMoves.push(square_id+8);
+            }
+            // up right
+            if(numColumn<=6) {
+                var squareContent = getContentOfSquare(gameBoard, square_id+9);
+                if(squareContent == null || squareContent.team != pieceTeam) {
+                    legalMoves.push(square_id+9);
+                }
+            }
+        }
     }
 
     return legalMoves;
