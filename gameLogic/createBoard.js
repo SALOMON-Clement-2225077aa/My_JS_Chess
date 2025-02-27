@@ -106,6 +106,7 @@ function leftClickOnSquare(e) {
     pieceInside = clickedSquare.firstChild;
     highlightSquare(clickedSquare);
     removeSelectedSquares();
+    showLegalMoves(gameBoard,clickedSquare);
 }
 
 function dragPiece(e) {
