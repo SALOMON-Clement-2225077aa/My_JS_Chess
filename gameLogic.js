@@ -3,6 +3,8 @@
 // ---
 
 const gameBoard = document.querySelector('#gameBoard');
+const coordinatesBox = document.querySelector('#coordinatesBox');
+
 const startBoard = [
     "B_rook", "B_Knight", "B_Bishop", "B_Queen", "B_King", "B_Bishop", "B_Knight", "B_rook",
     "B_pawn", "B_pawn"  , "B_pawn"  , "B_pawn" , "B_pawn", "B_pawn"  , "B_pawn"  , "B_pawn",
@@ -54,3 +56,24 @@ function addSquareColor(square, isOddLine, square_id) {
 }
 
 createBoard();
+
+function createCoordinates() {
+    const abscissaCoordinates = document.getElementById('abscissa');
+    const ordinateCoordinates = document.getElementById('ordinate');
+
+    for (let i = 0; i < 8; i++) {
+        const numLabel = document.createElement('p');
+        numLabel.textContent = 8 - i;
+        numLabel.classList.add("coordinate")
+        ordinateCoordinates.appendChild(numLabel);
+    }
+
+    for (let i = 0; i < 8; i++) {
+        const letterLabel = document.createElement('p');
+        letterLabel.textContent = String.fromCharCode(97 + i);
+        letterLabel.classList.add("coordinate")
+        abscissaCoordinates.appendChild(letterLabel);
+    }
+}
+
+createCoordinates();

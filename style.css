@@ -1,8 +1,18 @@
-body {
-    background-color: rgb(81, 80, 76, 1);
+/* Page */
+html {
+    height: 100%;
+    background: linear-gradient(180deg, rgba(49,48,44,1) 0%, rgba(81,80,76,1) 100%);
 }
 
+#viewBox {    
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+/* Game Board */
 #gameBoard {
+    z-index: 0;
     height: 640px;
     width: 640px;
     display: flex;
@@ -13,11 +23,37 @@ body {
     height: 80px;
     width: 80px;
 }
-
 .light-square {
     background-color: rgb(184, 135, 98, 1);
 }
-
 .dark-square {
     background-color: rgb(237, 214, 176, 1);
+}
+
+/* Coordinates */
+.coordinatesBox {
+    position: absolute;
+    display: grid;
+    margin-right: 80px;
+    grid-template-columns: 80px 640px;
+    grid-template-rows: 640px 80px;
+}
+.coordinates-ordinate {
+    grid-area: 1 / 1 / 2 / 2;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.coordinates-abscissa {
+    grid-area: 2 / 2 / 3 / 3;
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+}
+.coordinate {
+    color: rgb(168, 168, 168);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 125px;
 }
