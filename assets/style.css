@@ -23,11 +23,23 @@ html {
     height: 80px;
     width: 80px;
 }
-.light-square {
+.dark-square {
     background-color: rgb(184, 135, 98, 1);
 }
-.dark-square {
+.light-square {
     background-color: rgb(237, 214, 176, 1);
+}
+.dark-square.highlighted {
+    background-color: rgb(220, 195, 75, 1);
+}
+.light-square.highlighted {
+    background-color: rgb(246, 235, 114, 1);
+}
+.dark-square.selected {
+    background-color: rgb(225, 105, 84, 1);
+}
+.light-square.selected {
+    background-color: rgb(235, 121, 99, 1);
 }
 
 /* Coordinates */

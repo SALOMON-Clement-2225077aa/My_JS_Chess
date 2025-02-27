@@ -3,6 +3,8 @@
 // ---
 const gameBoard = document.querySelector('#gameBoard');
 const coordinatesBox = document.querySelector('#coordinatesBox');
+var lastSquareHiglighted = null;
+var listSquareSelected = [];
 
 const startBoard = [
     rook, knight, bishop, queen, king, bishop, knight, rook,
@@ -47,18 +49,18 @@ function createBoard() {
 function addSquareColor(square, isOddLine, square_id) {
     if(isOddLine) {
         if(square_id%2==0) {
-            square.classList.add("dark-square");
+            square.classList.add("light-square");
         }
         else {
-            square.classList.add("light-square");
+            square.classList.add("dark-square");
         }
     }
     else {
         if(square_id%2==0) {
-            square.classList.add("light-square");
+            square.classList.add("dark-square");
         }
         else {
-            square.classList.add("dark-square");
+            square.classList.add("light-square");
         }
     }
 }
@@ -88,21 +90,22 @@ function createCoordinates() {
 
 
 // ---
-//  Create the square listeners
+//  Create the event listeners on the squares
 // ---
 function createListeners() {
     const allSquares = document.querySelectorAll("#gameBoard .square");
     allSquares.forEach(square => {
-        square.addEventListener("click",showPossibleMoves);
+        square.addEventListener("click",leftClickOnSquare); // left click
+        square.addEventListener("contextmenu",selectSquare); // right click
         square.addEventListener("dragstart",dragPiece);
     });
 }
 
-function showPossibleMoves(e) {
+function leftClickOnSquare(e) {
     clickedSquare = e.currentTarget;
     pieceInside = clickedSquare.firstChild;
-    console.log(clickedSquare);
-    console.log(pieceInside);
+    highlightSquare(clickedSquare);
+    removeSelectedSquares();
 }
 
 function dragPiece(e) {
@@ -112,7 +115,47 @@ function dragPiece(e) {
 
 
 // ---
-//  Call the functions
+//  Functions to highlight and select/unselect pieces
+// ---
+function highlightSquare(clickedSquare) {
+    if(clickedSquare.classList.contains("highlighted")) {
+        clickedSquare.classList.remove("highlighted");
+        lastSquareHiglighted = null;
+    }
+    else {
+        clickedSquare.classList.add("highlighted");
+        if(lastSquareHiglighted!=null) {
+            lastSquareHiglighted.classList.remove("highlighted");
+        }
+        lastSquareHiglighted = clickedSquare;
+    }
+}
+
+function selectSquare(e) {
+    e.preventDefault();
+    rightClickedSquare = e.currentTarget;
+    if (rightClickedSquare.classList.contains("selected")) {
+        rightClickedSquare.classList.remove("selected");
+        const index = listSquareSelected.indexOf(rightClickedSquare);
+        if (index !== -1) {listSquareSelected.splice(index, 1);}
+    }
+    else {
+        rightClickedSquare.classList.add("selected");
+        listSquareSelected.push(rightClickedSquare);
+    }
+    console.log(listSquareSelected);
+}
+
+function removeSelectedSquares() {
+    for (let i = listSquareSelected.length - 1; i >= 0; i--) {
+        listSquareSelected[i].classList.remove("selected");
+        listSquareSelected.splice(i, 1);
+    }
+}
+
+
+// ---
+//  Call the functions to create the board
 // ---
 createBoard();
 createCoordinates();
