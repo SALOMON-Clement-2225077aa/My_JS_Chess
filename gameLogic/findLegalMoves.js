@@ -106,18 +106,96 @@ function getPieceLegalMoves(gameBoard, square_id) {
         }
     }
 
+    // -----
+    // ROOK :
     else if (pieceId == "rook") {
+        // move left
+        var numColumn = square_id%8;
+        var tempPosition = square_id;
+        while (numColumn-1 >= 0) {
+            var squareContent = getContentOfSquare(gameBoard, tempPosition-1);
+            if(squareContent == null) {
+                legalMoves.push(tempPosition-1);
+                --numColumn;
+                --tempPosition;
+            }
+            else {
+                if(squareContent.team != pieceTeam) {
+                    legalMoves.push(tempPosition-1);
+                }
+                break;
+            }
+        }
+        // move right
+        var numColumn = square_id%8;
+        var tempPosition = square_id;
+        while (numColumn+1 <= 7) {
+            var squareContent = getContentOfSquare(gameBoard, tempPosition+1);
+            if(squareContent == null) {
+                legalMoves.push(tempPosition+1);
+                ++numColumn;
+                ++tempPosition;
+            }
+            else {
+                if(squareContent.team != pieceTeam) {
+                    legalMoves.push(tempPosition+1);
+                }
+                break;
+            }
+        }
+        // move up
+        var numRow = Math.floor(square_id/8);
+        var tempPosition = square_id;
+        while (numRow-1 >= 0) {
+            var squareContent = getContentOfSquare(gameBoard, tempPosition-8);
+            if(squareContent == null) {
+                legalMoves.push(tempPosition-8);
+                --numRow;
+                tempPosition -= 8;
+            }
+            else {
+                if(squareContent.team != pieceTeam) {
+                    legalMoves.push(tempPosition-8);
+                }
+                break;
+            }
+        }
+        // move down
+        var numRow = Math.floor(square_id/8);
+        var tempPosition = square_id;
+        while (numRow+1 <= 7) {
+            var squareContent = getContentOfSquare(gameBoard, tempPosition+8);
+            if(squareContent == null) {
+                legalMoves.push(tempPosition+8);
+                ++numRow;
+                tempPosition += 8;
+            }
+            else {
+                if(squareContent.team != pieceTeam) {
+                    legalMoves.push(tempPosition+8);
+                }
+                break;
+            }
+        }
     }
     
+    // -----
+    // KNIGHT :
     else if (pieceId == "knight") {
     }
     
+    // -----
+    // BISHOP :
     else if (pieceId == "bishop") {
     }
     
+    // -----
+    // QUEEN :
     else if (pieceId == "queen") {
     }
     
+    // -----
+    // KING :
     else if (pieceId == "king") {
     }
 

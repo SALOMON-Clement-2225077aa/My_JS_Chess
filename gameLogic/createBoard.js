@@ -144,7 +144,6 @@ function selectSquare(e) {
         rightClickedSquare.classList.add("selected");
         listSquareSelected.push(rightClickedSquare);
     }
-    console.log(listSquareSelected);
 }
 
 function removeSelectedSquares() {
