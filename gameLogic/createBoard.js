@@ -105,6 +105,9 @@ function createListeners() {
 function leftClickOnSquare(e) {
     clickedSquare = e.currentTarget;
     pieceInside = clickedSquare.firstChild;
+    if(clickedSquare.classList.contains("possibleMove") || clickedSquare.classList.contains("possibleTake")) {
+        movePiece(lastSquareHiglighted,clickedSquare,pieceInside);
+    }
     highlightSquare(clickedSquare);
     removeSelectedSquares();
     hidePreviousLegalMoves();
@@ -155,6 +158,7 @@ function removeSelectedSquares() {
     }
 }
 
+
 // ---
 // Functions to display/hide the legals moves on the gameBoard
 // ---
@@ -179,10 +183,28 @@ function showLegalMoves(gameBoard, clickedSquare) {
 function hidePreviousLegalMoves() {
     for (let i = listLegalMovesDisplayed.length - 1; i >= 0; i--) {
         listLegalMovesDisplayed[i].classList.remove("possibleMove");
-        listLegalMovesDisplayed[i].classList.remove("possibleMove");
+        listLegalMovesDisplayed[i].classList.remove("possibleTake");
         listLegalMovesDisplayed.splice(i, 1);
     }
 }
+
+
+// ---
+// Function to move a selected piece to a legal position
+// ---
+function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
+    pieceToMove = lastSquareHiglighted.firstChild;
+    lastSquareHiglighted.removeChild(pieceToMove);
+    if(pieceInside == null) {
+        clickedSquare.appendChild(pieceToMove);
+    }
+    else {
+        clickedSquare.removeChild(clickedSquare.firstChild);
+        clickedSquare.appendChild(pieceToMove);
+    }
+    highlightSquare(clickedSquare);
+}
+
 
 // ---
 //  Call the functions to create the board
