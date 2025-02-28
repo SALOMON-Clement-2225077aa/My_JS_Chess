@@ -12,7 +12,6 @@ html {
 
 /* Game Board & squares styles */
 #gameBoard {
-    z-index: 0;
     height: 640px;
     width: 640px;
     display: flex;
@@ -23,7 +22,6 @@ html {
     height: 80px;
     width: 80px;
     position: relative;
-    z-index: 3;
 }
 .dark-square {
     background-color: rgb(184, 135, 98, 1);
@@ -72,7 +70,6 @@ html {
     height: 63px;
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    z-index: 2;
 }
 .dark-square.possibleTake::before {
     border: 7px solid rgba(158, 116, 84, 1);
@@ -112,12 +109,12 @@ html {
 
 /* Pieces */
 .piece {
+    z-index: 0;
     height: 80px;
     width: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1;
 }
 .piece svg {
     stroke-width: 1px;

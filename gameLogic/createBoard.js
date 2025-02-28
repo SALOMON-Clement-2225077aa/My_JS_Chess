@@ -3,6 +3,7 @@
 // ---
 const gameBoard = document.querySelector('#gameBoard');
 const coordinatesBox = document.querySelector('#coordinatesBox');
+var playTurn = "white";
 var lastSquareHiglighted = null;
 var listSquareSelected = [];
 var listLegalMovesDisplayed = [];
@@ -111,7 +112,9 @@ function leftClickOnSquare(e) {
     highlightSquare(clickedSquare);
     removeSelectedSquares();
     hidePreviousLegalMoves();
-    showLegalMoves(gameBoard,clickedSquare);
+    if( pieceInside != null && ((pieceInside.classList.contains("black") && playTurn == "black") || (pieceInside.classList.contains("white") && playTurn == "white")) ) {
+        showLegalMoves(gameBoard,clickedSquare);
+    }
 }
 
 function dragPiece(e) {
@@ -203,6 +206,8 @@ function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
         clickedSquare.appendChild(pieceToMove);
     }
     highlightSquare(clickedSquare);
+    if(playTurn=="white") {playTurn = "black";}
+    else if(playTurn=="black") {playTurn = "white";}
 }
 
 
