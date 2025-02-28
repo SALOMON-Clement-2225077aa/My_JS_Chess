@@ -164,14 +164,21 @@ function showLegalMoves(gameBoard, clickedSquare) {
     listLegalMoves.forEach(legalMove => {
         const square = gameBoard.querySelector(`[square_id="${legalMove}"]`);
         if(lastSquareHiglighted != null) {
-        square.classList.add("possibleMove");
-        listLegalMovesDisplayed.push(square);
+            if( getContentOfSquare(gameBoard, legalMove) == null) {
+                square.classList.add("possibleMove");
+                listLegalMovesDisplayed.push(square);
+            }
+            else {
+                square.classList.add("possibleTake");
+                listLegalMovesDisplayed.push(square);
+            }
         }
     });
 }
 
 function hidePreviousLegalMoves() {
     for (let i = listLegalMovesDisplayed.length - 1; i >= 0; i--) {
+        listLegalMovesDisplayed[i].classList.remove("possibleMove");
         listLegalMovesDisplayed[i].classList.remove("possibleMove");
         listLegalMovesDisplayed.splice(i, 1);
     }
