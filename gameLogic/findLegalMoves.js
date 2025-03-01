@@ -25,14 +25,14 @@ function getContentOfSquare(gameBoard, square_id) {
 // -------------------------
 // | GET PIECE LEGAL MOVES |
 // -------------------------
-function getPieceLegalMoves(gameBoard, square_id) {
+function getPieceLegalMoves(gameBoard, square_id, realCase = true) {
     const square = gameBoard.querySelector(`[square_id="${square_id}"]`);
     var pieceDiv = square.firstChild;
     if (pieceDiv == null) {return [];}
     var pieceId = pieceDiv.id;
     var pieceTeam = pieceDiv.className.slice(6);
     var legalMoves = [];
-    
+
     // -----
     // PAWNS :
     // -----
@@ -42,24 +42,48 @@ function getPieceLegalMoves(gameBoard, square_id) {
         if(pieceTeam == "white") {
             // one square ahead
             if(getContentOfSquare(gameBoard, square_id-8)==null) {
-                legalMoves.push(square_id-8);
+                if(realCase) {
+                    var fakeBoard = simulateMove(gameBoard, square_id, square_id-8);
+                    var testPosition = findCheck(fakeBoard);
+                    if(!testPosition.isWhiteInCheck) {
+                        legalMoves.push(square_id-8);
+                    }
+                }
             }
             // two square ahead
             if(square_id>=48 && square_id<=55) {
                 if(getContentOfSquare(gameBoard, square_id-8)==null && getContentOfSquare(gameBoard, square_id-16)==null) {
-                    legalMoves.push(square_id-16);
+                    if(realCase) {
+                        var fakeBoard = simulateMove(gameBoard, square_id, square_id-16);
+                        var testPosition = findCheck(fakeBoard);
+                        if(!testPosition.isWhiteInCheck) {
+                            legalMoves.push(square_id-16);
+                        }
+                    }
                 }
             }
             // eating left
             if(square_id%8 != 0) {
                 if(getContentOfSquare(gameBoard, square_id-9) && getContentOfSquare(gameBoard, square_id-9).team == "black") {
-                    legalMoves.push(square_id-9);
+                    if(realCase) {
+                        var fakeBoard = simulateMove(gameBoard, square_id, square_id-9);
+                        var testPosition = findCheck(fakeBoard);
+                        if(!testPosition.isWhiteInCheck) {
+                            legalMoves.push(square_id-9);
+                        }
+                    }
                 }
             }
             // eating right
             if(square_id%8 != 7) {
                 if(getContentOfSquare(gameBoard, square_id-7) && getContentOfSquare(gameBoard, square_id-7).team == "black") {
-                    legalMoves.push(square_id-7);
+                    if(realCase) {
+                        var fakeBoard = simulateMove(gameBoard, square_id, square_id-7);
+                        var testPosition = findCheck(fakeBoard);
+                        if(!testPosition.isWhiteInCheck) {
+                            legalMoves.push(square_id-7);
+                        }
+                    }
                 }
             }
             // TODO -> en passant
@@ -67,31 +91,54 @@ function getPieceLegalMoves(gameBoard, square_id) {
 
             }
             // TODO -> if the pawn is on the last row it transforms
-            // TODO -> the piece cannot move if it puts the king in danger
         }
         // ---
         // for black :
         if(pieceTeam == "black") {
             // one square ahead
             if(getContentOfSquare(gameBoard, square_id+8)==null) {
-                legalMoves.push(square_id+8);
+                if(realCase) {
+                    var fakeBoard = simulateMove(gameBoard, square_id, square_id+8);
+                    var testPosition = findCheck(fakeBoard);
+                    if(!testPosition.isBlackInCheck) {
+                        legalMoves.push(square_id+8);
+                    }
+                }
             }
             // two square ahead
             if(square_id>=8 && square_id<=15) {
                 if(getContentOfSquare(gameBoard, square_id+8)==null && getContentOfSquare(gameBoard, square_id+16)==null) {
-                    legalMoves.push(square_id+16);
+                    if(realCase) {
+                        var fakeBoard = simulateMove(gameBoard, square_id, square_id+16);
+                        var testPosition = findCheck(fakeBoard);
+                        if(!testPosition.isBlackInCheck) {
+                            legalMoves.push(square_id+16);
+                        }
+                    }
                 }
             }
             // eating left
             if(square_id%8 != 0) {
                 if(getContentOfSquare(gameBoard, square_id+9) && getContentOfSquare(gameBoard, square_id+9).team == "white") {
-                    legalMoves.push(square_id+9);
+                    if(realCase) {
+                        var fakeBoard = simulateMove(gameBoard, square_id, square_id+9);
+                        var testPosition = findCheck(fakeBoard);
+                        if(!testPosition.isBlackInCheck) {
+                            legalMoves.push(square_id+9);
+                        }
+                    }
                 }
             }
             // eating right
             if(square_id%8 != 7) {
                 if(getContentOfSquare(gameBoard, square_id+7) && getContentOfSquare(gameBoard, square_id+7).team == "white") {
-                    legalMoves.push(square_id+7);
+                    if(realCase) {
+                        var fakeBoard = simulateMove(gameBoard, square_id, square_id+7);
+                        var testPosition = findCheck(fakeBoard);
+                        if(!testPosition.isBlackInCheck) {
+                            legalMoves.push(square_id+7);
+                        }
+                    }
                 }
             }
             // TODO -> en passant
@@ -99,7 +146,6 @@ function getPieceLegalMoves(gameBoard, square_id) {
 
             }
             // TODO -> if the pawn is on the last row it transforms
-            // TODO -> the piece cannot move if it puts the king in danger
         }
     }
 
