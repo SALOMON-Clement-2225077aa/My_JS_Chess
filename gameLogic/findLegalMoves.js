@@ -559,6 +559,9 @@ function getPieceLegalMoves(gameBoard, square_id) {
                 }
             }
         }
+        if(false) {
+            // TODO -> long castle and short castle
+        }
     }
 
     return legalMoves;

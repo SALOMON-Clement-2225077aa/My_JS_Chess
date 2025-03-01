@@ -34,7 +34,7 @@ function createBoard() {
             square.firstChild.classList.add('black');
             square.firstChild.firstChild.classList.add('player-black');
         }
-        if (square_id>=48) {
+        else if (square_id>=48) {
             square.firstChild.classList.add('white');
             square.firstChild.firstChild.classList.add('player-white');
         }
@@ -208,6 +208,8 @@ function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
     highlightSquare(clickedSquare);
     if(playTurn=="white") {playTurn = "black";}
     else if(playTurn=="black") {playTurn = "white";}
+    
+    console.log(findCheck());
 }
 
 
