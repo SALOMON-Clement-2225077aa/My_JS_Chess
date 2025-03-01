@@ -208,8 +208,6 @@ function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
     highlightSquare(clickedSquare);
     if(playTurn=="white") {playTurn = "black";}
     else if(playTurn=="black") {playTurn = "white";}
-    
-    console.log(simulateMove(gameBoard, 8, 16));
 }
 
 

@@ -49,6 +49,9 @@ function getPieceLegalMoves(gameBoard, square_id, realCase = true) {
                         legalMoves.push(square_id-8);
                     }
                 }
+                else {
+                    legalMoves.push(square_id-8);
+                }
             }
             // two square ahead
             if(square_id>=48 && square_id<=55) {
@@ -59,6 +62,9 @@ function getPieceLegalMoves(gameBoard, square_id, realCase = true) {
                         if(!testPosition.isWhiteInCheck) {
                             legalMoves.push(square_id-16);
                         }
+                    }
+                    else {
+                        legalMoves.push(square_id-16);
                     }
                 }
             }
@@ -72,6 +78,9 @@ function getPieceLegalMoves(gameBoard, square_id, realCase = true) {
                             legalMoves.push(square_id-9);
                         }
                     }
+                    else {
+                        legalMoves.push(square_id-9);
+                    }
                 }
             }
             // eating right
@@ -83,6 +92,9 @@ function getPieceLegalMoves(gameBoard, square_id, realCase = true) {
                         if(!testPosition.isWhiteInCheck) {
                             legalMoves.push(square_id-7);
                         }
+                    }
+                    else {
+                        legalMoves.push(square_id-7);
                     }
                 }
             }
@@ -104,6 +116,9 @@ function getPieceLegalMoves(gameBoard, square_id, realCase = true) {
                         legalMoves.push(square_id+8);
                     }
                 }
+                else {
+                    legalMoves.push(square_id+8);
+                }
             }
             // two square ahead
             if(square_id>=8 && square_id<=15) {
@@ -114,6 +129,9 @@ function getPieceLegalMoves(gameBoard, square_id, realCase = true) {
                         if(!testPosition.isBlackInCheck) {
                             legalMoves.push(square_id+16);
                         }
+                    }
+                    else {
+                        legalMoves.push(square_id+16);
                     }
                 }
             }
@@ -127,6 +145,9 @@ function getPieceLegalMoves(gameBoard, square_id, realCase = true) {
                             legalMoves.push(square_id+9);
                         }
                     }
+                    else {
+                        legalMoves.push(square_id+9);
+                    }
                 }
             }
             // eating right
@@ -138,6 +159,9 @@ function getPieceLegalMoves(gameBoard, square_id, realCase = true) {
                         if(!testPosition.isBlackInCheck) {
                             legalMoves.push(square_id+7);
                         }
+                    }
+                    else {
+                        legalMoves.push(square_id+7);
                     }
                 }
             }
@@ -235,14 +259,32 @@ function getPieceLegalMoves(gameBoard, square_id, realCase = true) {
             if(numColumn>=1) {
                 var squareContent = getContentOfSquare(gameBoard, square_id-17);
                 if(squareContent == null || squareContent.team != pieceTeam) {
-                    legalMoves.push(square_id-17);
+                    if(realCase) {
+                        var fakeBoard = simulateMove(gameBoard, square_id, square_id-17);
+                        var testPosition = findCheck(fakeBoard);
+                        if((pieceTeam=="black" && !testPosition.isBlackInCheck)||(pieceTeam=="white" && !testPosition.isWhiteInCheck)) {
+                            legalMoves.push(square_id-17);
+                        }
+                    }
+                    else {
+                        legalMoves.push(square_id-17);
+                    }
                 }
             }
             // right
             if(numColumn<=6) {
                 var squareContent = getContentOfSquare(gameBoard, square_id-15);
                 if(squareContent == null || squareContent.team != pieceTeam) {
-                    legalMoves.push(square_id-15);
+                    if(realCase) {
+                        var fakeBoard = simulateMove(gameBoard, square_id, square_id-15);
+                        var testPosition = findCheck(fakeBoard);
+                        if((pieceTeam=="black" && !testPosition.isBlackInCheck)||(pieceTeam=="white" && !testPosition.isWhiteInCheck)) {
+                            legalMoves.push(square_id-15);
+                        }
+                    }
+                    else {
+                        legalMoves.push(square_id-15);
+                    }
                 }
             }
         }
@@ -252,14 +294,32 @@ function getPieceLegalMoves(gameBoard, square_id, realCase = true) {
             if(numColumn>=2) {
                 var squareContent = getContentOfSquare(gameBoard, square_id-10);
                 if(squareContent == null || squareContent.team != pieceTeam) {
-                    legalMoves.push(square_id-10);
+                    if(realCase) {
+                        var fakeBoard = simulateMove(gameBoard, square_id, square_id-10);
+                        var testPosition = findCheck(fakeBoard);
+                        if((pieceTeam=="black" && !testPosition.isBlackInCheck)||(pieceTeam=="white" && !testPosition.isWhiteInCheck)) {
+                            legalMoves.push(square_id-10);
+                        }
+                    }
+                    else {
+                        legalMoves.push(square_id-10);
+                    }
                 }
             }
             // right
             if(numColumn<=5) {
                 var squareContent = getContentOfSquare(gameBoard, square_id-6);
                 if(squareContent == null || squareContent.team != pieceTeam) {
-                    legalMoves.push(square_id-6);
+                    if(realCase) {
+                        var fakeBoard = simulateMove(gameBoard, square_id, square_id-6);
+                        var testPosition = findCheck(fakeBoard);
+                        if((pieceTeam=="black" && !testPosition.isBlackInCheck)||(pieceTeam=="white" && !testPosition.isWhiteInCheck)) {
+                            legalMoves.push(square_id-6);
+                        }
+                    }
+                    else {
+                        legalMoves.push(square_id-6);
+                    }
                 }
             }
         }
@@ -269,14 +329,32 @@ function getPieceLegalMoves(gameBoard, square_id, realCase = true) {
             if(numColumn>=2) {
                 var squareContent = getContentOfSquare(gameBoard, square_id+6);
                 if(squareContent == null || squareContent.team != pieceTeam) {
-                    legalMoves.push(square_id+6);
+                    if(realCase) {
+                        var fakeBoard = simulateMove(gameBoard, square_id, square_id+6);
+                        var testPosition = findCheck(fakeBoard);
+                        if((pieceTeam=="black" && !testPosition.isBlackInCheck)||(pieceTeam=="white" && !testPosition.isWhiteInCheck)) {
+                            legalMoves.push(square_id+6);
+                        }
+                    }
+                    else {
+                        legalMoves.push(square_id+6);
+                    }
                 }
             }
             // right
             if(numColumn<=5) {
                 var squareContent = getContentOfSquare(gameBoard, square_id+10);
                 if(squareContent == null || squareContent.team != pieceTeam) {
-                    legalMoves.push(square_id+10);
+                    if(realCase) {
+                        var fakeBoard = simulateMove(gameBoard, square_id, square_id+10);
+                        var testPosition = findCheck(fakeBoard);
+                        if((pieceTeam=="black" && !testPosition.isBlackInCheck)||(pieceTeam=="white" && !testPosition.isWhiteInCheck)) {
+                            legalMoves.push(square_id+10);
+                        }
+                    }
+                    else {
+                        legalMoves.push(square_id+10);
+                    }
                 }
             }
         }
@@ -286,14 +364,32 @@ function getPieceLegalMoves(gameBoard, square_id, realCase = true) {
             if(numColumn>=1) {
                 var squareContent = getContentOfSquare(gameBoard, square_id+15);
                 if(squareContent == null || squareContent.team != pieceTeam) {
-                    legalMoves.push(square_id+15);
+                    if(realCase) {
+                        var fakeBoard = simulateMove(gameBoard, square_id, square_id+15);
+                        var testPosition = findCheck(fakeBoard);
+                        if((pieceTeam=="black" && !testPosition.isBlackInCheck)||(pieceTeam=="white" && !testPosition.isWhiteInCheck)) {
+                            legalMoves.push(square_id+15);
+                        }
+                    }
+                    else {
+                        legalMoves.push(square_id+15);
+                    }
                 }
             }
             // right
             if(numColumn<=6) {
                 var squareContent = getContentOfSquare(gameBoard, square_id+17);
                 if(squareContent == null || squareContent.team != pieceTeam) {
-                    legalMoves.push(square_id+17);
+                    if(realCase) {
+                        var fakeBoard = simulateMove(gameBoard, square_id, square_id+17);
+                        var testPosition = findCheck(fakeBoard);
+                        if((pieceTeam=="black" && !testPosition.isBlackInCheck)||(pieceTeam=="white" && !testPosition.isWhiteInCheck)) {
+                            legalMoves.push(square_id+17);
+                        }
+                    }
+                    else {
+                        legalMoves.push(square_id+17);
+                    }
                 }
             }
         }
@@ -550,19 +646,46 @@ function getPieceLegalMoves(gameBoard, square_id, realCase = true) {
             if(numColumn>=1) {
                 var squareContent = getContentOfSquare(gameBoard, square_id-9);
                 if(squareContent == null || squareContent.team != pieceTeam) {
-                    legalMoves.push(square_id-9);
+                    if(realCase) {
+                        var fakeBoard = simulateMove(gameBoard, square_id, square_id-9);
+                        var testPosition = findCheck(fakeBoard);
+                        if((pieceTeam=="black" && !testPosition.isBlackInCheck)||(pieceTeam=="white" && !testPosition.isWhiteInCheck)) {
+                            legalMoves.push(square_id-9);
+                        }
+                    }
+                    else {
+                        legalMoves.push(square_id-9);
+                    }
                 }
             }
             // up
             var squareContent = getContentOfSquare(gameBoard, square_id-8);
             if(squareContent == null || squareContent.team != pieceTeam) {
-                legalMoves.push(square_id-8);
+                if(realCase) {
+                    var fakeBoard = simulateMove(gameBoard, square_id, square_id-8);
+                    var testPosition = findCheck(fakeBoard);
+                    if((pieceTeam=="black" && !testPosition.isBlackInCheck)||(pieceTeam=="white" && !testPosition.isWhiteInCheck)) {
+                        legalMoves.push(square_id-8);
+                    }
+                }
+                else {
+                    legalMoves.push(square_id-8);
+                }
             }
             // up right
             if(numColumn<=6) {
                 var squareContent = getContentOfSquare(gameBoard, square_id-7);
                 if(squareContent == null || squareContent.team != pieceTeam) {
-                    legalMoves.push(square_id-7);
+                    if(realCase) {
+                        var fakeBoard = simulateMove(gameBoard, square_id, square_id-7);
+                        var testPosition = findCheck(fakeBoard);
+                        if((pieceTeam=="black" && !testPosition.isBlackInCheck)||(pieceTeam=="white" && !testPosition.isWhiteInCheck)) {
+                            legalMoves.push(square_id-7);
+                        }
+                    }
+                    else {
+                        legalMoves.push(square_id-7);
+                    }
                 }
             }
         }
@@ -573,13 +696,31 @@ function getPieceLegalMoves(gameBoard, square_id, realCase = true) {
         if(numColumn>=1) {
             var squareContent = getContentOfSquare(gameBoard, square_id-1);
             if(squareContent == null || squareContent.team != pieceTeam) {
-                legalMoves.push(square_id-1);
+                if(realCase) {
+                    var fakeBoard = simulateMove(gameBoard, square_id, square_id-1);
+                    var testPosition = findCheck(fakeBoard);
+                    if((pieceTeam=="black" && !testPosition.isBlackInCheck)||(pieceTeam=="white" && !testPosition.isWhiteInCheck)) {
+                        legalMoves.push(square_id-1);
+                    }
+                }
+                else {
+                    legalMoves.push(square_id-1);
+                }
             }
         }
         if(numColumn<=6) {
             var squareContent = getContentOfSquare(gameBoard, square_id+1);
             if(squareContent == null || squareContent.team != pieceTeam) {
-                legalMoves.push(square_id+1);
+                if(realCase) {
+                    var fakeBoard = simulateMove(gameBoard, square_id, square_id+1);
+                    var testPosition = findCheck(fakeBoard);
+                    if((pieceTeam=="black" && !testPosition.isBlackInCheck)||(pieceTeam=="white" && !testPosition.isWhiteInCheck)) {
+                        legalMoves.push(square_id+1);
+                    }
+                }
+                else {
+                    legalMoves.push(square_id+1);
+                }
             }
         }
         // ---
@@ -589,19 +730,46 @@ function getPieceLegalMoves(gameBoard, square_id, realCase = true) {
             if(numColumn>=1) {
                 var squareContent = getContentOfSquare(gameBoard, square_id+7);
                 if(squareContent == null || squareContent.team != pieceTeam) {
-                    legalMoves.push(square_id+7);
+                    if(realCase) {
+                        var fakeBoard = simulateMove(gameBoard, square_id, square_id+7);
+                        var testPosition = findCheck(fakeBoard);
+                        if((pieceTeam=="black" && !testPosition.isBlackInCheck)||(pieceTeam=="white" && !testPosition.isWhiteInCheck)) {
+                            legalMoves.push(square_id+7);
+                        }
+                    }
+                    else {
+                        legalMoves.push(square_id+7);
+                    }
                 }
             }
             // down
             var squareContent = getContentOfSquare(gameBoard, square_id+8);
             if(squareContent == null || squareContent.team != pieceTeam) {
-                legalMoves.push(square_id+8);
+                if(realCase) {
+                    var fakeBoard = simulateMove(gameBoard, square_id, square_id+8);
+                    var testPosition = findCheck(fakeBoard);
+                    if((pieceTeam=="black" && !testPosition.isBlackInCheck)||(pieceTeam=="white" && !testPosition.isWhiteInCheck)) {
+                        legalMoves.push(square_id+8);
+                    }
+                }
+                else {
+                    legalMoves.push(square_id+8);
+                }
             }
             // up right
             if(numColumn<=6) {
                 var squareContent = getContentOfSquare(gameBoard, square_id+9);
                 if(squareContent == null || squareContent.team != pieceTeam) {
-                    legalMoves.push(square_id+9);
+                    if(realCase) {
+                        var fakeBoard = simulateMove(gameBoard, square_id, square_id+9);
+                        var testPosition = findCheck(fakeBoard);
+                        if((pieceTeam=="black" && !testPosition.isBlackInCheck)||(pieceTeam=="white" && !testPosition.isWhiteInCheck)) {
+                            legalMoves.push(square_id+9);
+                        }
+                    }
+                    else {
+                        legalMoves.push(square_id+9);
+                    }
                 }
             }
         }
