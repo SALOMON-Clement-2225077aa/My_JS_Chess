@@ -103,7 +103,6 @@ function getPieceLegalMoves(gameBoard, square_id, realCase = true) {
                 if(false) {
 
                 }
-                // TODO -> if the pawn is on the last row it transforms
             }
         }
         // ---
@@ -172,7 +171,6 @@ function getPieceLegalMoves(gameBoard, square_id, realCase = true) {
                 if(false) {
 
                 }
-                // TODO -> if the pawn is on the last row it transforms
             }
         }
     }

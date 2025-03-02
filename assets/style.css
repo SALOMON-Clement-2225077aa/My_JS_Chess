@@ -37,6 +37,13 @@ html {
     background-color: rgb(246, 235, 114, 1);
 }
 
+.dark-square.lastMove {
+    background-color: rgb(200, 170, 50, 1);
+}
+.light-square.lastMove {
+    background-color: rgb(225, 210, 90, 1);
+}
+
 .dark-square.selected {
     background-color: rgb(225, 105, 84, 1);
 }
@@ -79,7 +86,7 @@ html {
 }
 
 
-/* Coordinates */
+/* Board coordinates */
 .coordinatesBox {
     position: absolute;
     display: grid;

@@ -5,6 +5,7 @@ const gameBoard = document.querySelector('#gameBoard');
 const coordinatesBox = document.querySelector('#coordinatesBox');
 var playTurn = "white";
 var lastSquareHiglighted = null;
+var lastMovePlayed = [null, null];
 var listSquareSelected = [];
 var listLegalMovesDisplayed = [];
 
@@ -124,75 +125,6 @@ function dragPiece(e) {
 
 
 // ---
-//  Functions to highlight and select/unselect pieces
-// ---
-function highlightSquare(clickedSquare) {
-    if(clickedSquare.classList.contains("highlighted")) {
-        clickedSquare.classList.remove("highlighted");
-        lastSquareHiglighted = null;
-    }
-    else {
-        clickedSquare.classList.add("highlighted");
-        if(lastSquareHiglighted!=null) {
-            lastSquareHiglighted.classList.remove("highlighted");
-        }
-        lastSquareHiglighted = clickedSquare;
-    }
-}
-
-function selectSquare(e) {
-    e.preventDefault();
-    rightClickedSquare = e.currentTarget;
-    if (rightClickedSquare.classList.contains("selected")) {
-        rightClickedSquare.classList.remove("selected");
-        const index = listSquareSelected.indexOf(rightClickedSquare);
-        if (index !== -1) {listSquareSelected.splice(index, 1);}
-    }
-    else {
-        rightClickedSquare.classList.add("selected");
-        listSquareSelected.push(rightClickedSquare);
-    }
-}
-
-function removeSelectedSquares() {
-    for (let i = listSquareSelected.length - 1; i >= 0; i--) {
-        listSquareSelected[i].classList.remove("selected");
-        listSquareSelected.splice(i, 1);
-    }
-}
-
-
-// ---
-// Functions to display/hide the legals moves on the gameBoard
-// ---
-function showLegalMoves(gameBoard, clickedSquare) {
-    var square_id = parseInt(clickedSquare.getAttribute("square_id"), 10);
-    var listLegalMoves = getPieceLegalMoves(gameBoard, square_id);
-    listLegalMoves.forEach(legalMove => {
-        const square = gameBoard.querySelector(`[square_id="${legalMove}"]`);
-        if(lastSquareHiglighted != null) {
-            if( getContentOfSquare(gameBoard, legalMove) == null) {
-                square.classList.add("possibleMove");
-                listLegalMovesDisplayed.push(square);
-            }
-            else {
-                square.classList.add("possibleTake");
-                listLegalMovesDisplayed.push(square);
-            }
-        }
-    });
-}
-
-function hidePreviousLegalMoves() {
-    for (let i = listLegalMovesDisplayed.length - 1; i >= 0; i--) {
-        listLegalMovesDisplayed[i].classList.remove("possibleMove");
-        listLegalMovesDisplayed[i].classList.remove("possibleTake");
-        listLegalMovesDisplayed.splice(i, 1);
-    }
-}
-
-
-// ---
 // Function to move a selected piece to a legal position
 // ---
 function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
@@ -209,7 +141,7 @@ function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
     if ((pieceToMove.id=="pawn")&&(((pieceToMove.classList.contains("black"))&&(square_id>=56))||(pieceToMove.classList.contains("white"))&&(square_id<8))) {
         pawnTransformation(clickedSquare, pieceToMove);
     }
-    highlightSquare(clickedSquare);
+    hilightPlayedMove(lastSquareHiglighted, clickedSquare);
     if(playTurn=="white") {playTurn = "black";}
     else if(playTurn=="black") {playTurn = "white";}
 }
