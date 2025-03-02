@@ -196,14 +196,18 @@ function hidePreviousLegalMoves() {
 // Function to move a selected piece to a legal position
 // ---
 function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
-    pieceToMove = lastSquareHiglighted.firstChild;
+    const pieceToMove = lastSquareHiglighted.firstChild;
     lastSquareHiglighted.removeChild(pieceToMove);
+    const square_id = parseInt(clickedSquare.getAttribute("square_id"), 10);
     if(pieceInside == null) {
         clickedSquare.appendChild(pieceToMove);
     }
     else {
         clickedSquare.removeChild(clickedSquare.firstChild);
         clickedSquare.appendChild(pieceToMove);
+    }
+    if ((pieceToMove.id=="pawn")&&(((pieceToMove.classList.contains("black"))&&(square_id>=56))||(pieceToMove.classList.contains("white"))&&(square_id<8))) {
+        pawnTransformation(clickedSquare, pieceToMove);
     }
     highlightSquare(clickedSquare);
     if(playTurn=="white") {playTurn = "black";}

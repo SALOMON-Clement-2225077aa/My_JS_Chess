@@ -40,136 +40,140 @@ function getPieceLegalMoves(gameBoard, square_id, realCase = true) {
         // ---
         // for white :
         if(pieceTeam == "white") {
-            // one square ahead
-            if(getContentOfSquare(gameBoard, square_id-8)==null) {
-                if(realCase) {
-                    var fakeBoard = simulateMove(gameBoard, square_id, square_id-8);
-                    var testPosition = findCheck(fakeBoard);
-                    if(!testPosition.isWhiteInCheck) {
+            if(square_id>=8) {
+                // one square ahead
+                if(getContentOfSquare(gameBoard, square_id-8)==null) {
+                    if(realCase) {
+                        var fakeBoard = simulateMove(gameBoard, square_id, square_id-8);
+                        var testPosition = findCheck(fakeBoard);
+                        if(!testPosition.isWhiteInCheck) {
+                            legalMoves.push(square_id-8);
+                        }
+                    }
+                    else {
                         legalMoves.push(square_id-8);
                     }
                 }
-                else {
-                    legalMoves.push(square_id-8);
-                }
-            }
-            // two square ahead
-            if(square_id>=48 && square_id<=55) {
-                if(getContentOfSquare(gameBoard, square_id-8)==null && getContentOfSquare(gameBoard, square_id-16)==null) {
-                    if(realCase) {
-                        var fakeBoard = simulateMove(gameBoard, square_id, square_id-16);
-                        var testPosition = findCheck(fakeBoard);
-                        if(!testPosition.isWhiteInCheck) {
+                // two square ahead
+                if(square_id>=48 && square_id<=55) {
+                    if(getContentOfSquare(gameBoard, square_id-8)==null && getContentOfSquare(gameBoard, square_id-16)==null) {
+                        if(realCase) {
+                            var fakeBoard = simulateMove(gameBoard, square_id, square_id-16);
+                            var testPosition = findCheck(fakeBoard);
+                            if(!testPosition.isWhiteInCheck) {
+                                legalMoves.push(square_id-16);
+                            }
+                        }
+                        else {
                             legalMoves.push(square_id-16);
                         }
                     }
-                    else {
-                        legalMoves.push(square_id-16);
-                    }
                 }
-            }
-            // eating left
-            if(square_id%8 != 0) {
-                if(getContentOfSquare(gameBoard, square_id-9) && getContentOfSquare(gameBoard, square_id-9).team == "black") {
-                    if(realCase) {
-                        var fakeBoard = simulateMove(gameBoard, square_id, square_id-9);
-                        var testPosition = findCheck(fakeBoard);
-                        if(!testPosition.isWhiteInCheck) {
+                // eating left
+                if(square_id%8 != 0) {
+                    if(getContentOfSquare(gameBoard, square_id-9) && getContentOfSquare(gameBoard, square_id-9).team == "black") {
+                        if(realCase) {
+                            var fakeBoard = simulateMove(gameBoard, square_id, square_id-9);
+                            var testPosition = findCheck(fakeBoard);
+                            if(!testPosition.isWhiteInCheck) {
+                                legalMoves.push(square_id-9);
+                            }
+                        }
+                        else {
                             legalMoves.push(square_id-9);
                         }
                     }
-                    else {
-                        legalMoves.push(square_id-9);
-                    }
                 }
-            }
-            // eating right
-            if(square_id%8 != 7) {
-                if(getContentOfSquare(gameBoard, square_id-7) && getContentOfSquare(gameBoard, square_id-7).team == "black") {
-                    if(realCase) {
-                        var fakeBoard = simulateMove(gameBoard, square_id, square_id-7);
-                        var testPosition = findCheck(fakeBoard);
-                        if(!testPosition.isWhiteInCheck) {
+                // eating right
+                if(square_id%8 != 7) {
+                    if(getContentOfSquare(gameBoard, square_id-7) && getContentOfSquare(gameBoard, square_id-7).team == "black") {
+                        if(realCase) {
+                            var fakeBoard = simulateMove(gameBoard, square_id, square_id-7);
+                            var testPosition = findCheck(fakeBoard);
+                            if(!testPosition.isWhiteInCheck) {
+                                legalMoves.push(square_id-7);
+                            }
+                        }
+                        else {
                             legalMoves.push(square_id-7);
                         }
                     }
-                    else {
-                        legalMoves.push(square_id-7);
-                    }
                 }
-            }
-            // TODO -> en passant
-            if(false) {
+                // TODO -> en passant
+                if(false) {
 
+                }
+                // TODO -> if the pawn is on the last row it transforms
             }
-            // TODO -> if the pawn is on the last row it transforms
         }
         // ---
         // for black :
         if(pieceTeam == "black") {
-            // one square ahead
-            if(getContentOfSquare(gameBoard, square_id+8)==null) {
-                if(realCase) {
-                    var fakeBoard = simulateMove(gameBoard, square_id, square_id+8);
-                    var testPosition = findCheck(fakeBoard);
-                    if(!testPosition.isBlackInCheck) {
+            if(square_id<56) {
+                // one square ahead
+                if(getContentOfSquare(gameBoard, square_id+8)==null) {
+                    if(realCase) {
+                        var fakeBoard = simulateMove(gameBoard, square_id, square_id+8);
+                        var testPosition = findCheck(fakeBoard);
+                        if(!testPosition.isBlackInCheck) {
+                            legalMoves.push(square_id+8);
+                        }
+                    }
+                    else {
                         legalMoves.push(square_id+8);
                     }
                 }
-                else {
-                    legalMoves.push(square_id+8);
-                }
-            }
-            // two square ahead
-            if(square_id>=8 && square_id<=15) {
-                if(getContentOfSquare(gameBoard, square_id+8)==null && getContentOfSquare(gameBoard, square_id+16)==null) {
-                    if(realCase) {
-                        var fakeBoard = simulateMove(gameBoard, square_id, square_id+16);
-                        var testPosition = findCheck(fakeBoard);
-                        if(!testPosition.isBlackInCheck) {
+                // two square ahead
+                if(square_id>=8 && square_id<=15) {
+                    if(getContentOfSquare(gameBoard, square_id+8)==null && getContentOfSquare(gameBoard, square_id+16)==null) {
+                        if(realCase) {
+                            var fakeBoard = simulateMove(gameBoard, square_id, square_id+16);
+                            var testPosition = findCheck(fakeBoard);
+                            if(!testPosition.isBlackInCheck) {
+                                legalMoves.push(square_id+16);
+                            }
+                        }
+                        else {
                             legalMoves.push(square_id+16);
                         }
                     }
-                    else {
-                        legalMoves.push(square_id+16);
-                    }
                 }
-            }
-            // eating left
-            if(square_id%8 != 0) {
-                if(getContentOfSquare(gameBoard, square_id+9) && getContentOfSquare(gameBoard, square_id+9).team == "white") {
-                    if(realCase) {
-                        var fakeBoard = simulateMove(gameBoard, square_id, square_id+9);
-                        var testPosition = findCheck(fakeBoard);
-                        if(!testPosition.isBlackInCheck) {
+                // eating left
+                if(square_id%8 != 7) {
+                    if(getContentOfSquare(gameBoard, square_id+9) && getContentOfSquare(gameBoard, square_id+9).team == "white") {
+                        if(realCase) {
+                            var fakeBoard = simulateMove(gameBoard, square_id, square_id+9);
+                            var testPosition = findCheck(fakeBoard);
+                            if(!testPosition.isBlackInCheck) {
+                                legalMoves.push(square_id+9);
+                            }
+                        }
+                        else {
                             legalMoves.push(square_id+9);
                         }
                     }
-                    else {
-                        legalMoves.push(square_id+9);
-                    }
                 }
-            }
-            // eating right
-            if(square_id%8 != 7) {
-                if(getContentOfSquare(gameBoard, square_id+7) && getContentOfSquare(gameBoard, square_id+7).team == "white") {
-                    if(realCase) {
-                        var fakeBoard = simulateMove(gameBoard, square_id, square_id+7);
-                        var testPosition = findCheck(fakeBoard);
-                        if(!testPosition.isBlackInCheck) {
+                // eating right
+                if(square_id%8 != 0) {
+                    if(getContentOfSquare(gameBoard, square_id+7) && getContentOfSquare(gameBoard, square_id+7).team == "white") {
+                        if(realCase) {
+                            var fakeBoard = simulateMove(gameBoard, square_id, square_id+7);
+                            var testPosition = findCheck(fakeBoard);
+                            if(!testPosition.isBlackInCheck) {
+                                legalMoves.push(square_id+7);
+                            }
+                        }
+                        else {
                             legalMoves.push(square_id+7);
                         }
                     }
-                    else {
-                        legalMoves.push(square_id+7);
-                    }
                 }
-            }
-            // TODO -> en passant
-            if(false) {
+                // TODO -> en passant
+                if(false) {
 
+                }
+                // TODO -> if the pawn is on the last row it transforms
             }
-            // TODO -> if the pawn is on the last row it transforms
         }
     }
 
