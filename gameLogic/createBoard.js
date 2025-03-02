@@ -8,6 +8,7 @@ var lastSquareHiglighted = null;
 var lastMovePlayed = [null, null];
 var listSquareSelected = [];
 var listLegalMovesDisplayed = [];
+var isEnPassantIdToRemove = false;
 
 const startBoard = [
     rook, knight, bishop, queen, king, bishop, knight, rook,
@@ -133,6 +134,18 @@ function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
     const square_id = parseInt(clickedSquare.getAttribute("square_id"), 10);
     if(pieceInside == null) {
         clickedSquare.appendChild(pieceToMove);
+        if(isEnPassantIdToRemove) {
+            if((pieceToMove.classList.contains("white"))&&(isEnPassantIdToRemove==square_id+8) ) {
+                const squareToRemove = gameBoard.querySelector(`[square_id="${isEnPassantIdToRemove}"]`);
+                squareToRemove.removeChild(squareToRemove.firstChild);
+            }
+            if((pieceToMove.classList.contains("black"))&&(isEnPassantIdToRemove==square_id-8) ) {
+                const squareToRemove = gameBoard.querySelector(`[square_id="${isEnPassantIdToRemove}"]`);
+                squareToRemove.removeChild(squareToRemove.firstChild);
+            }
+            isEnPassantIdToRemove = false;
+        }
+
     }
     else {
         clickedSquare.removeChild(clickedSquare.firstChild);

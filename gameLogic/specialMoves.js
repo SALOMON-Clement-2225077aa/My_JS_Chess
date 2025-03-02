@@ -1,3 +1,90 @@
+// ---
+// Function that hanlde "en passant" (rule regarding pawns)
+// ---
+function getEnPassantMove(gameBoard, pieceTeam, square_id) {
+    if(pieceTeam == "black") {
+        if(square_id>= 32 && square_id<=39) {
+            // eating left
+            if(square_id%8 != 0) {
+                var squareOnTheLeft = getContentOfSquare(gameBoard, square_id-1);
+                if(squareOnTheLeft != null) {
+                    if((squareOnTheLeft.name=="pawn")&&(squareOnTheLeft.team="white")) {
+                        // white pawn on left square
+                        const start_id = parseInt(lastMovePlayed[0].getAttribute("square_id"), 10);
+                        const end_id = parseInt(lastMovePlayed[1].getAttribute("square_id"), 10);
+                        if((end_id == square_id-1) && (start_id == square_id-1+8+8)) {
+                            isEnPassantIdToRemove = square_id-1;
+                            return square_id+7
+                        }
+                    }
+                }
+            }
+            // eating right
+            if(square_id%8 != 7) {
+                var squareOnTheLeft = getContentOfSquare(gameBoard, square_id+1);
+                if(squareOnTheLeft != null) {
+                    if((squareOnTheLeft.name=="pawn")&&(squareOnTheLeft.team="white")) {
+                        // white pawn on left square
+                        const start_id = parseInt(lastMovePlayed[0].getAttribute("square_id"), 10);
+                        const end_id = parseInt(lastMovePlayed[1].getAttribute("square_id"), 10);
+                        if((end_id == square_id+1) && (start_id == square_id+1+8+8)) {
+                            isEnPassantIdToRemove = square_id+1;
+                            return square_id+9
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    if(pieceTeam == "white") {
+        if(square_id>= 24 && square_id<=31) {
+            // eating left
+            if(square_id%8 != 0) {
+                var squareOnTheLeft = getContentOfSquare(gameBoard, square_id-1);
+                if(squareOnTheLeft != null) {
+                    if((squareOnTheLeft.name=="pawn")&&(squareOnTheLeft.team="black")) {
+                        // black pawn on left square
+                        const start_id = parseInt(lastMovePlayed[0].getAttribute("square_id"), 10);
+                        const end_id = parseInt(lastMovePlayed[1].getAttribute("square_id"), 10);
+                        if((end_id == square_id-1) && (start_id == square_id-1-8-8)) {
+                            isEnPassantIdToRemove = square_id-1;
+                            return square_id-9
+                        }
+                    }
+                }
+            }
+            // eating right
+            if(square_id%8 != 7) {
+                var squareOnTheLeft = getContentOfSquare(gameBoard, square_id+1);
+                if(squareOnTheLeft != null) {
+                    if((squareOnTheLeft.name=="pawn")&&(squareOnTheLeft.team="black")) {
+                        // black pawn on left square
+                        const start_id = parseInt(lastMovePlayed[0].getAttribute("square_id"), 10);
+                        const end_id = parseInt(lastMovePlayed[1].getAttribute("square_id"), 10);
+                        if((end_id == square_id+1) && (start_id == square_id+1-8-8)) {
+                            isEnPassantIdToRemove = square_id+1;
+                            return square_id-7
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return null;
+}
+
+// ---
+// Function that handle the castling moves (between the king and the rook)
+// ---
+function getCastleMoves() {
+    return []
+}
+
+// ---
+// If a pawn reach the end of the board :
+// Create a popup that allows the player to choose a piece to transform the pawn into
+// ---
 function pawnTransformation(clickedSquare, pieceDiv) {
     var position = clickedSquare.getBoundingClientRect();
     const teamIsBlack = pieceDiv.classList.contains("black");

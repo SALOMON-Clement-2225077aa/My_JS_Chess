@@ -99,9 +99,19 @@ function getPieceLegalMoves(gameBoard, square_id, realCase = true) {
                         }
                     }
                 }
-                // TODO -> en passant
-                if(false) {
-
+                // "en passant"
+                const enPassant = getEnPassantMove(gameBoard, pieceTeam, square_id)
+                if(enPassant) {
+                    if(realCase) {
+                        var fakeBoard = simulateMove(gameBoard, square_id, enPassant);
+                        var testPosition = findCheck(fakeBoard);
+                        if(!testPosition.isWhiteInCheck) {
+                            legalMoves.push(enPassant);
+                        }
+                    }
+                    else {
+                        legalMoves.push(enPassant);
+                    }
                 }
             }
         }
@@ -167,9 +177,19 @@ function getPieceLegalMoves(gameBoard, square_id, realCase = true) {
                         }
                     }
                 }
-                // TODO -> en passant
-                if(false) {
-
+                // "en passant"
+                const enPassant = getEnPassantMove(gameBoard, pieceTeam, square_id)
+                if(enPassant) {
+                    if(realCase) {
+                        var fakeBoard = simulateMove(gameBoard, square_id, enPassant);
+                        var testPosition = findCheck(fakeBoard);
+                        if(!testPosition.isWhiteInCheck) {
+                            legalMoves.push(enPassant);
+                        }
+                    }
+                    else {
+                        legalMoves.push(enPassant);
+                    }
                 }
             }
         }
