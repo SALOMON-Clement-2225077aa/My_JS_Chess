@@ -1,0 +1,72 @@
+/* Boxes */
+#UI {
+    height: 700px;
+    width: 400px;
+    margin-left: 50px;
+}
+
+#UI-top {
+    border-radius: 10px 10px 0px 0px;
+    height: 50px;
+    width: 400px;
+    background-color: rgb(34, 33, 32);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#UI-mid {
+    height: 600px;
+    width: 400px;
+    background: linear-gradient(180deg, rgba(42,41,40,1) 0%, rgba(72,71,70,1) 100%);
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+    justify-content: center;
+}
+
+#UI-bot {
+    border-radius: 0px 0px 10px 10px;
+    height: 50px;
+    width: 400px;
+    background-color: rgb(34, 33, 32);
+}
+
+/* Content */
+h2 {
+    font-family: 'Montserrat';
+    font-size: 20px;
+    margin: 0px;
+    color: white;
+}
+
+#moveWindow {
+    background-color: rgb(128, 128, 128, 0.2);
+    margin-top: 25px;
+    height: 475px;
+    width: 325px;
+}
+
+#buttonWindow {
+    height: 50px;
+    width: 400px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+button {
+    height: 80%;
+    border-radius: 10px;
+    font-family: 'Montserrat';
+    --outlineBoxShadow: rgba(93, 153, 72, 0.2);
+    background-color: rgb(93, 153, 72);
+    color: white;
+}
+button#rotateBoard {
+    width: 62%;
+}
+button#rotateBoard {
+    width: 32%;
+}

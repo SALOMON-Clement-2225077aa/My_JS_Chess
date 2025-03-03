@@ -4,6 +4,11 @@ html {
     background: linear-gradient(180deg, rgba(49,48,44,1) 0%, rgba(81,80,76,1) 100%);
 }
 
+#content {
+    display: flex;
+    justify-content: center;
+}
+
 #viewBox {    
     display: flex;
     justify-content: center;

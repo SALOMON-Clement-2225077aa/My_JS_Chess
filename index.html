@@ -4,18 +4,37 @@
     <meta charset="UTF-8">
     <title>Clement's chess board!</title>
     <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/UI_style.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
   </head>
   <body>
-    <div id="viewBox">
-        <div class="coordinatesBox">
-            <div class="coordinates-ordinate" id="ordinate"></div>
-            <div class="coordinates-abscissa" id="abscissa"></div>
-        </div>
-        <div id="gameBoard"></div>
-    </div>
 
+    <!-- Page Content --> 
+     <div id="content">
+        <div id="viewBox">
+          <div class="coordinatesBox">
+              <div class="coordinates-ordinate" id="ordinate"></div>
+              <div class="coordinates-abscissa" id="abscissa"></div>
+          </div>
+          <div id="gameBoard"></div>
+        </div>
+        <div id="UI">
+          <div id="UI-top"><h2>Play against your friends!</h2></div>
+          <div id="UI-mid">
+            <div id="moveWindow"></div>
+            <div id="buttonWindow">
+              <button id="switchGameMode">Play against my MiniMax !</button>
+              <button id="rotateBoard">Rotate the board</button>
+            </div>
+          </div>
+          <div id="UI-bot"></div>
+        </div>
+     </div>
+
+    <!-- Scripts files --> 
     <script src="assets/pieces.js"></script>
+    <script src="assets/ui_logic.js"></script>
     <script src="gameLogic/handleSquareColors.js"></script>
     <script src="gameLogic/createBoard.js"></script>
     <script src="gameLogic/findLegalMoves.js"></script>
