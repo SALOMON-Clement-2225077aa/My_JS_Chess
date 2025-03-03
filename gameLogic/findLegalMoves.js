@@ -1075,6 +1075,8 @@ function getPieceLegalMoves(gameBoard, square_id, realCase = true) {
     else if (pieceId == "king") {
         var numRow = Math.floor(square_id/8);
         var numColumn = square_id%8;
+        var canMoveLeft = false;
+        var canMoveRight = false;
         // ---
         // THE 3 UPS
         if(numRow>=1) {
@@ -1137,6 +1139,7 @@ function getPieceLegalMoves(gameBoard, square_id, realCase = true) {
                     var testPosition = findCheck(fakeBoard);
                     if((pieceTeam=="black" && !testPosition.isBlackInCheck)||(pieceTeam=="white" && !testPosition.isWhiteInCheck)) {
                         legalMoves.push(square_id-1);
+                        canMoveLeft = true;
                     }
                 }
                 else {
@@ -1152,6 +1155,7 @@ function getPieceLegalMoves(gameBoard, square_id, realCase = true) {
                     var testPosition = findCheck(fakeBoard);
                     if((pieceTeam=="black" && !testPosition.isBlackInCheck)||(pieceTeam=="white" && !testPosition.isWhiteInCheck)) {
                         legalMoves.push(square_id+1);
+                        canMoveRight = true;
                     }
                 }
                 else {
@@ -1209,10 +1213,38 @@ function getPieceLegalMoves(gameBoard, square_id, realCase = true) {
                 }
             }
         }
-        if(false) {
-            // TODO -> long castle and short castle
+        // castleMoves = [castleRookColumnA, castleRookColumnH,]
+        const castleMoves = getCastleMoves(gameBoard, pieceTeam, canMoveLeft, canMoveRight);
+        if(castleMoves[0] != null) {
+            if(realCase) {
+                var fakeBoard = simulateMove(gameBoard, square_id, castleMoves[0]);
+                var testPosition = findCheck(fakeBoard);
+                if((pieceTeam=="black" && !testPosition.isBlackInCheck)||(pieceTeam=="white" && !testPosition.isWhiteInCheck)) {
+                    check = findCheck(gameBoard);
+                    if((pieceTeam=="black" && !check.isBlackInCheck)||(pieceTeam=="white" && !check.isWhiteInCheck)){
+                        legalMoves.push(castleMoves[0]);   
+                    }
+                }
+            }
+            else {
+                legalMoves.push(castleMoves[0]);
+            }
+        }
+        if(castleMoves[1] != null) {
+            if(realCase) {
+                var fakeBoard = simulateMove(gameBoard, square_id, castleMoves[1]);
+                var testPosition = findCheck(fakeBoard);
+                if((pieceTeam=="black" && !testPosition.isBlackInCheck)||(pieceTeam=="white" && !testPosition.isWhiteInCheck)) {
+                    check = findCheck(gameBoard);
+                    if((pieceTeam=="black" && !check.isBlackInCheck)||(pieceTeam=="white" && !check.isWhiteInCheck)){
+                        legalMoves.push(castleMoves[1]);   
+                    }
+                }
+            }
+            else {
+                legalMoves.push(castleMoves[1]);
+            }
         }
     }
-
     return legalMoves;
 }

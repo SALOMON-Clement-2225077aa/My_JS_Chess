@@ -77,8 +77,39 @@ function getEnPassantMove(gameBoard, pieceTeam, square_id) {
 // ---
 // Function that handle the castling moves (between the king and the rook)
 // ---
-function getCastleMoves() {
-    return []
+function getCastleMoves(gameBoard, pieceTeam, canMoveLeft, canMoveRight) {
+    var castleMoves = [null, null];
+    if(pieceTeam=="black") {
+        if(!blackKingHaveMoved) {
+            if(!blackRook_columnA_HaveMoved && canMoveLeft) {
+                if((getContentOfSquare(gameBoard,1)==null && getContentOfSquare(gameBoard,2)==null && getContentOfSquare(gameBoard,3)==null)) {
+                    castleMoves[0] = 2;
+                }
+            }
+            if(!blackRook_columnH_HaveMoved && canMoveRight) {
+                if((getContentOfSquare(gameBoard,5)==null && getContentOfSquare(gameBoard,6)==null)) {
+                    castleMoves[1] = 6;
+                }
+            }
+        }
+        return castleMoves;
+    }
+    else if(pieceTeam=="white") {
+        if(!whiteKingHaveMoved) {
+            if(!whiteRook_columnA_HaveMoved && canMoveLeft) {
+                if((getContentOfSquare(gameBoard,57)==null && getContentOfSquare(gameBoard,58)==null && getContentOfSquare(gameBoard,59)==null)) {
+                    castleMoves[0] = 58;
+                }
+            }
+            if(!whiteRook_columnH_HaveMoved && canMoveRight) {
+                if((getContentOfSquare(gameBoard,61)==null && getContentOfSquare(gameBoard,62)==null)) {
+                    castleMoves[1] = 62;
+                }
+            }
+        }
+        return castleMoves;
+    }
+    return castleMoves;
 }
 
 // ---
