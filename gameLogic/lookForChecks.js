@@ -57,3 +57,23 @@ function findCheck(board) {
 
     return { isBlackInCheck, isWhiteInCheck };
 }
+
+// ---
+// Look at the board state and search for CHECKMATES (for a specific team for efficiency)
+// Return -> boolean
+// ---
+function isCheckmate(team) {
+    const allSquares = gameBoard.childNodes;
+    for (let square of allSquares) {
+        const square_id = parseInt(square.getAttribute("square_id"), 10);
+        const piece = getContentOfSquare(gameBoard, square_id);
+        if (piece && piece.team === team) {
+            const pieceLegalMoves = getPieceLegalMoves(gameBoard, square_id, true);
+            if (pieceLegalMoves.length > 0) { 
+                return false;
+            }
+        }
+    }
+    someoneIsCheckmate = true;
+    return true; 
+}

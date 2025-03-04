@@ -5,6 +5,7 @@ const gameBoard = document.querySelector('#gameBoard');
 const coordinatesBox = document.querySelector('#coordinatesBox');
 var playTurn = "white";
 var check = {"isBlackInCheck":false, "isWhiteInCheck":false};
+var someoneIsCheckmate = false;
 var lastSquareHiglighted = null;
 var lastMovePlayed = [null, null];
 var listSquareSelected = [];

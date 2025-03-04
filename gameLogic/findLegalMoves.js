@@ -21,7 +21,7 @@ function getContentOfSquare(gameBoard, square_id) {
 }
 
 // Input  --> gameBoard & squareId
-// Output --> a list of every square the piece inside that can go
+// Output --> a list of every square the piece inside that can go (or [])
 // -------------------------
 // | GET PIECE LEGAL MOVES |
 // -------------------------

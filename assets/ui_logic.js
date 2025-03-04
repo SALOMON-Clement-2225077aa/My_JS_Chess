@@ -29,20 +29,22 @@ buttonRotateBoard.addEventListener("click", rotateBoard);
 
 
 function update_ui(pieceToMove, startSquare_id, square_id, isTake, isEnPassant, isPawnTransformation, notation_isCastle) {
-
+    if(check.isBlackInCheck==true) {
+        var blackCheckmate = isCheckmate("black")
+        if(blackCheckmate) {
+            displayPopUpEndGame("white");
+        }
+    }
+    if(check.isWhiteInCheck==true) {
+        var whiteCheckmate = isCheckmate("white")
+        if(whiteCheckmate) {
+            displayPopUpEndGame("black");
+        }
+    }
     const algebraicNotation = findAlgebraicNotation(pieceToMove, startSquare_id, square_id, isTake, isEnPassant, isPawnTransformation, notation_isCastle);
     if(algebraicNotation) {
         displayAlgebraicNotation(playTurn, algebraicNotation)
     }
-
-    if(check.isBlackInCheck==true||check.isWhiteInCheck==true) {
-        // TODO ->
-        // var checkmate = isCheckmate()
-        // if(checkmate) {
-        //     display_pop-up_endgame()
-        // }
-    }
-
 }
 
 function displayAlgebraicNotation(playTurn, algebraicNotation) {
@@ -99,6 +101,9 @@ function findAlgebraicNotation(pieceToMove, startSquare_id, square_id, isTake, i
     var checkNotation = "";
     if(check.isBlackInCheck==true||check.isWhiteInCheck==true) { 
         var checkNotation = "+";
+        if(someoneIsCheckmate == true) {
+            checkNotation = "#";
+        }
      }
 
     var algebraicNotation = pieceLetter + isTake + posY + posX + checkNotation;
@@ -126,4 +131,8 @@ function findAlgebraicNotation(pieceToMove, startSquare_id, square_id, isTake, i
 
 function scrollToBottom() {
     moveLog.scrollTop = moveLog.scrollHeight;
+}
+
+function displayPopUpEndGame(winner) {
+    alert(winner + " won !!!");
 }
