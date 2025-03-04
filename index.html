@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="assets/style.css">
     <link rel="stylesheet" href="assets/UI_style.css">
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
   </head>
   <body>
 
@@ -35,6 +35,26 @@
         <div id="UI-bot"></div>
       </div>
 
+    </div>
+
+    <div id="popup-endgame" style="display: none;">
+      <div id="winnerName">Black won !</div>
+      <div id="players">
+        <div id="player-1">
+          <img src="assets/icons/white_icon.png" class="player_icon looser" id="icon_p1">
+          <p>White</p>
+        </div>
+        <p style="margin-bottom: 30px;">VS</p>
+        <div id="player-2">
+          <img src="assets/icons/black_icon.png" class="player_icon winner" id="icon_p2">
+          <p>Black</p>
+        </div>
+      </div>
+      <div id="RematchOrQuit">
+        <button id="rematch">Rematch</button>
+        <button id="quit">Quit</button>
+      </div>
+      <div id="popup-bot"></div>
     </div>
 
     <!-- Scripts files --> 
