@@ -56,17 +56,21 @@ h2 {
     justify-content: space-evenly;
 }
 
-button {
+button#switchGameMode {
     height: 80%;
     border-radius: 10px;
     font-family: 'Montserrat';
     --outlineBoxShadow: rgba(93, 153, 72, 0.2);
     background-color: rgb(93, 153, 72);
     color: white;
+    width: 60%;
 }
 button#rotateBoard {
-    width: 62%;
-}
-button#rotateBoard {
-    width: 32%;
+    height: 80%;
+    border-radius: 10px;
+    font-family: 'Montserrat';
+    --outlineBoxShadow: rgba(93, 153, 72, 0.2);
+    background-color: rgb(93, 153, 72);
+    color: white;
+    width: 30%;
 }

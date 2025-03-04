@@ -4,6 +4,7 @@
 const gameBoard = document.querySelector('#gameBoard');
 const coordinatesBox = document.querySelector('#coordinatesBox');
 var playTurn = "white";
+var check = {"isBlackInCheck":false, "isWhiteInCheck":false};
 var lastSquareHiglighted = null;
 var lastMovePlayed = [null, null];
 var listSquareSelected = [];
@@ -16,6 +17,7 @@ var blackRook_columnH_HaveMoved = false;
 var whiteKingHaveMoved = false;
 var whiteRook_columnA_HaveMoved = false;
 var whiteRook_columnH_HaveMoved = false;
+var lastNotation = "";
 
 const startBoard = [
     rook, knight, bishop, queen, king, bishop, knight, rook,
@@ -136,6 +138,10 @@ function dragPiece(e) {
 // Function to move a selected piece to a legal position
 // ---
 function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
+    var notation_isTake = "";
+    var notation_isCastle = "";
+    var notation_isEnPassant = "";
+    var notation_isPawnTransformation = "";
     const pieceToMove = lastSquareHiglighted.firstChild;
     lastSquareHiglighted.removeChild(pieceToMove);
     const startSquare_id = parseInt(lastSquareHiglighted.getAttribute("square_id"), 10);
@@ -149,10 +155,12 @@ function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
             if((pieceToMove.classList.contains("white"))&&(isEnPassantIdToRemove==square_id+8) ) {
                 const squareToRemove = gameBoard.querySelector(`[square_id="${isEnPassantIdToRemove}"]`);
                 squareToRemove.removeChild(squareToRemove.firstChild);
+                notation_isEnPassant = " e.p.";
             }
             if((pieceToMove.classList.contains("black"))&&(isEnPassantIdToRemove==square_id-8) ) {
                 const squareToRemove = gameBoard.querySelector(`[square_id="${isEnPassantIdToRemove}"]`);
                 squareToRemove.removeChild(squareToRemove.firstChild);
+                notation_isEnPassant = " e.p.";
             }
             isEnPassantIdToRemove = false;
         }
@@ -165,6 +173,7 @@ function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
                     square56.removeChild(rookToMove);
                     const square59 = gameBoard.querySelector(`[square_id="${59}"]`);
                     square59.appendChild(rookToMove);
+                    notation_isCastle = "O-O-O";
                 }
                 else if(startSquare_id==60 && square_id==62) {
                     const square63 = gameBoard.querySelector(`[square_id="${63}"]`);
@@ -172,6 +181,7 @@ function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
                     square63.removeChild(rookToMove);
                     const square61 = gameBoard.querySelector(`[square_id="${61}"]`);
                     square61.appendChild(rookToMove);
+                    notation_isCastle = "O-O";
                 }
             }
             if(pieceToMove.classList.contains("black")) {
@@ -181,6 +191,7 @@ function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
                     square0.removeChild(rookToMove);
                     const square3 = gameBoard.querySelector(`[square_id="${3}"]`);
                     square3.appendChild(rookToMove);
+                    notation_isCastle = "O-O-O";
                 }
                 else if(startSquare_id==4 && square_id==6) {
                     const square7 = gameBoard.querySelector(`[square_id="${7}"]`);
@@ -188,6 +199,7 @@ function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
                     square7.removeChild(rookToMove);
                     const square5 = gameBoard.querySelector(`[square_id="${5}"]`);
                     square5.appendChild(rookToMove);
+                    notation_isCastle = "O-O";
                 }
             }
         }
@@ -195,6 +207,7 @@ function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
     else {
         clickedSquare.removeChild(clickedSquare.firstChild);
         clickedSquare.appendChild(pieceToMove);
+        notation_isTake = "x";
     }
     // Special moves and variables
     if(pieceToMove.id=="king" && pieceToMove.classList.contains("black")) {blackKingHaveMoved = true;}
@@ -205,8 +218,11 @@ function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
     if(startSquare_id==63||square_id==63) {whiteRook_columnH_HaveMoved = true;}
     if ((pieceToMove.id=="pawn")&&(((pieceToMove.classList.contains("black"))&&(square_id>=56))||(pieceToMove.classList.contains("white"))&&(square_id<8))) {
         pawnTransformation(clickedSquare, pieceToMove);
+        notation_isPawnTransformation = true;
     }
     hilightPlayedMove(lastSquareHiglighted, clickedSquare);
+    check = findCheck(gameBoard);
+    update_ui(pieceToMove,startSquare_id,square_id,notation_isTake,notation_isEnPassant,notation_isPawnTransformation,notation_isCastle);
     if(playTurn=="white") {playTurn = "black";}
     else if(playTurn=="black") {playTurn = "white";}
 }

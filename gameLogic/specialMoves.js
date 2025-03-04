@@ -176,6 +176,13 @@ function pawnTransformation(clickedSquare, pieceDiv) {
                 clickedSquare.firstChild.firstChild.classList.add('player-white');
             }
             document.body.removeChild(popup);
+            // Update notation
+            const pieceNameToAlgebraicNotation = { "pawn": "",
+                "rook":"R", "knight":"N", "bishop":"B", "queen":"Q", "king":"K"
+            }
+            lastNotation = lastNotation+"("+pieceNameToAlgebraicNotation[piece.name]+")";
+            console.log(lastNotation);
+
         });
         popup.appendChild(button);
     }
