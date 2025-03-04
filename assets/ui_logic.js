@@ -13,6 +13,7 @@ const divButtons = document.getElementById("buttonWindow");
 const buttonSwitchGameMode = document.getElementById("switchGameMode");
 const buttonRotateBoard = document.getElementById("rotateBoard");
 
+var cptMoves = 0;
 
 // ---
 // functions
@@ -31,10 +32,59 @@ function update_ui(pieceToMove, startSquare_id, square_id, isTake, isEnPassant, 
 
     const algebraicNotation = findAlgebraicNotation(pieceToMove, startSquare_id, square_id, isTake, isEnPassant, isPawnTransformation, notation_isCastle);
     if(algebraicNotation) {
-        console.log(playTurn,algebraicNotation);
+        displayAlgebraicNotation(playTurn, algebraicNotation)
+    }
+
+    if(check.isBlackInCheck==true||check.isWhiteInCheck==true) {
+        // TODO ->
+        // var checkmate = isCheckmate()
+        // if(checkmate) {
+        //     display_pop-up_endgame()
+        // }
     }
 
 }
+
+function displayAlgebraicNotation(playTurn, algebraicNotation) {
+    if (playTurn === "white") {
+        cptMoves += 1;
+
+        var row = document.createElement("div");
+        row.classList.add("row-" + cptMoves);
+        row.classList.add("row");
+        if (cptMoves % 2 === 0) {
+            row.classList.add("even");
+        }
+
+        var rowID = document.createElement("div");
+        rowID.classList.add("rowID");
+        rowID.innerHTML = cptMoves + ".";
+
+        var whiteMove = document.createElement("div");
+        whiteMove.classList.add("whiteMove");
+        whiteMove.innerHTML = algebraicNotation;
+
+        var blackMove = document.createElement("div");
+        blackMove.classList.add("blackMove");
+
+        row.appendChild(rowID);
+        row.appendChild(whiteMove);
+        row.appendChild(blackMove);
+        moveLog.appendChild(row);
+    } 
+    else if (playTurn === "black") {
+        var lastRow = moveLog.lastElementChild;
+        if (lastRow) {
+            var blackMove = lastRow.querySelector(".blackMove");
+            if (blackMove) {
+                blackMove.innerHTML = algebraicNotation;
+            }
+        }
+    }
+    scrollToBottom();
+}
+
+
 
 function findAlgebraicNotation(pieceToMove, startSquare_id, square_id, isTake, isEnPassant, isPawnTransformation, notation_isCastle) {
     const columnLabels = ["a","b","c","d","e","f","g","h"]
@@ -72,4 +122,8 @@ function findAlgebraicNotation(pieceToMove, startSquare_id, square_id, isTake, i
     
     return null;
 
+}
+
+function scrollToBottom() {
+    moveLog.scrollTop = moveLog.scrollHeight;
 }

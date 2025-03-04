@@ -180,9 +180,13 @@ function pawnTransformation(clickedSquare, pieceDiv) {
             const pieceNameToAlgebraicNotation = { "pawn": "",
                 "rook":"R", "knight":"N", "bishop":"B", "queen":"Q", "king":"K"
             }
-            lastNotation = lastNotation+"("+pieceNameToAlgebraicNotation[piece.name]+")";
-            console.log(lastNotation);
-
+            lastNotation = lastNotation+"=("+pieceNameToAlgebraicNotation[piece.name]+")";
+            if(playTurn=="white") {
+                displayAlgebraicNotation("black", lastNotation)
+            }
+            else if (playTurn=="black") {
+                displayAlgebraicNotation("white", lastNotation)
+            }
         });
         popup.appendChild(button);
     }

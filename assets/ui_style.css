@@ -40,13 +40,6 @@ h2 {
     color: white;
 }
 
-#moveWindow {
-    background-color: rgb(128, 128, 128, 0.2);
-    margin-top: 25px;
-    height: 475px;
-    width: 325px;
-}
-
 #buttonWindow {
     height: 50px;
     width: 400px;
@@ -73,4 +66,48 @@ button#rotateBoard {
     background-color: rgb(93, 153, 72);
     color: white;
     width: 30%;
+}
+
+/* Handle Move window */
+#moveWindow {
+    background-color: rgb(128, 128, 128, 0.2);
+    margin-top: 25px;
+    height: 475px;
+    width: 325px;
+    overflow-y: auto; 
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+.row {
+    display: flex;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    height: 20px;
+    width: 325px;
+    color: white;
+    font-family: 'Montserrat';
+}
+.row.even {
+    background-color: rgb(69 68 65);
+}
+
+
+.rowID {
+    display: flex;
+    justify-content: center;
+    height: 20px;
+    width: 45px;
+}
+.whiteMove {
+    display: flex;
+    justify-content: center;
+    height: 20px;
+    width: 140px;
+}
+.blackMove {
+    display: flex;
+    justify-content: center;
+    height: 20px;
+    width: 140px;
 }
