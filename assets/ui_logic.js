@@ -3,6 +3,7 @@
 // ---
 const User_Interface = document.getElementById("UI");
 
+const popup = document.querySelector('#popup-endgame');
 const ui_top = document.getElementById("ui-top");
 const ui_mid = document.getElementById("ui-mid");
 const ui_bot = document.getElementById("ui-bot");
@@ -12,6 +13,11 @@ const divButtons = document.getElementById("buttonWindow");
 
 const buttonSwitchGameMode = document.getElementById("switchGameMode");
 const buttonRotateBoard = document.getElementById("rotateBoard");
+
+const buttonRematch = document.getElementById("rematch");
+const buttonQuit = document.getElementById("quit");
+const buttonReset = document.getElementById("reset");
+const buttonIA = document.getElementById("switchGameMode");
 
 var cptMoves = 0;
 
@@ -86,8 +92,6 @@ function displayAlgebraicNotation(playTurn, algebraicNotation) {
     scrollToBottom();
 }
 
-
-
 function findAlgebraicNotation(pieceToMove, startSquare_id, square_id, isTake, isEnPassant, isPawnTransformation, notation_isCastle) {
     const columnLabels = ["a","b","c","d","e","f","g","h"]
     const pieceNameToAlgebraicNotation = { "pawn": "",
@@ -134,5 +138,66 @@ function scrollToBottom() {
 }
 
 function displayPopUpEndGame(winner) {
-    alert(winner + " won !!!");
+    const white = document.querySelector('#icon_p1');
+    const black = document.querySelector('#icon_p2');
+    const topDivWinnerName = document.querySelector('#winnerName');
+    if(winner=="black") {
+        white.classList.remove("winner");
+        black.classList.remove("looser");
+        white.classList.add("looser");
+        black.classList.add("winner");
+        topDivWinnerName.innerHTML = "Black won !";
+        let scoreElement = document.getElementById("scoreBlack");
+        let currentScore = parseInt(scoreElement.innerText);
+        scoreElement.innerText = currentScore + 1;
+    }
+    else if(winner=="white") {
+        white.classList.remove("looser");
+        black.classList.remove("winner");
+        white.classList.add("winner");
+        black.classList.add("looser");
+        topDivWinnerName.innerHTML = "White won !";
+        let scoreElement = document.getElementById("scoreWhite");
+        let currentScore = parseInt(scoreElement.innerText);
+        scoreElement.innerText = currentScore + 1;
+    }
+    popup.style.display = "";
+}
+
+buttonQuit.addEventListener("click", function () {
+    popup.style.display = "none";
+});
+buttonIA.addEventListener("click", function() {
+    alert("Coming Soon! :)");
+})
+buttonReset.addEventListener("click", resetBoard);
+buttonRematch.addEventListener("click", resetBoard);
+
+function resetVariables() {
+    playTurn = "white";
+    check = {"isBlackInCheck":false, "isWhiteInCheck":false};
+    someoneIsCheckmate = false;
+    lastSquareHiglighted = null;
+    lastMovePlayed = [null, null];
+    listSquareSelected = [];
+    listLegalMovesDisplayed = [];
+    // Special Moves
+    isEnPassantIdToRemove = false;
+    blackKingHaveMoved = false;
+    blackRook_columnA_HaveMoved = false;
+    blackRook_columnH_HaveMoved = false;
+    whiteKingHaveMoved = false;
+    whiteRook_columnA_HaveMoved = false;
+    whiteRook_columnH_HaveMoved = false;
+    lastNotation = "";
+}
+
+function resetBoard() {
+    resetVariables();
+    gameBoard.innerHTML = "";
+    createBoard();
+    createListeners();
+    cptMoves = 0;
+    moveLog.innerHTML = "";
+    popup.style.display = "none";
 }

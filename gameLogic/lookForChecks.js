@@ -77,3 +77,5 @@ function isCheckmate(team) {
     someoneIsCheckmate = true;
     return true; 
 }
+
+// TODO -> Implement staleMate

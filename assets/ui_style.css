@@ -30,6 +30,8 @@
     height: 50px;
     width: 400px;
     background-color: rgb(34, 33, 32);
+    display: flex;
+    justify-content: flex-end;
 }
 
 /* Content */
@@ -144,13 +146,7 @@ button#rotateBoard {
     align-items: center;
 }
 
-#player-1 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#player-2 {
+.div-player {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -208,4 +204,10 @@ p {
     font-family: 'Montserrat';
     border-radius: 0px 0px 10px 10px;
     background-color: rgb(34, 33, 32);
+}
+
+#reset {
+    background-color: rgb(128, 128, 128, 0.4);
+    height: 40px;
+    margin: 5px;
 }

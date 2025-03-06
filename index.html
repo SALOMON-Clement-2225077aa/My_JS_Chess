@@ -32,7 +32,10 @@
             <button id="rotateBoard">Rotate board</button>
           </div>
         </div>
-        <div id="UI-bot"></div>
+        <div id="UI-bot">
+          <button id="reset">
+            <svg viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" style="height: 20px;"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g fill="none" fill-rule="evenodd" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" transform="matrix(0 1 1 0 2.5 2.5)"> <path d="m3.98652376 1.07807068c-2.38377179 1.38514556-3.98652376 3.96636605-3.98652376 6.92192932 0 4.418278 3.581722 8 8 8s8-3.581722 8-8-3.581722-8-8-8"></path> <path d="m4 1v4h-4" transform="matrix(1 0 0 -1 0 6)"></path> </g> </g></svg></button>
+        </div>
       </div>
 
     </div>
@@ -40,14 +43,16 @@
     <div id="popup-endgame" style="display: none;">
       <div id="winnerName">Black won !</div>
       <div id="players">
-        <div id="player-1">
+        <div class="div-player" id="player-1">
           <img src="assets/icons/white_icon.png" class="player_icon looser" id="icon_p1">
           <p>White</p>
+          <p id="scoreWhite">0</p>
         </div>
         <p style="margin-bottom: 30px;">VS</p>
-        <div id="player-2">
+        <div class="div-player" id="player-2">
           <img src="assets/icons/black_icon.png" class="player_icon winner" id="icon_p2">
           <p>Black</p>
+          <p id="scoreBlack">0</p>
         </div>
       </div>
       <div id="RematchOrQuit">

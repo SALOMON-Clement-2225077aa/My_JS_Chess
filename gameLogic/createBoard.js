@@ -3,6 +3,7 @@
 // ---
 const gameBoard = document.querySelector('#gameBoard');
 const coordinatesBox = document.querySelector('#coordinatesBox');
+
 var playTurn = "white";
 var check = {"isBlackInCheck":false, "isWhiteInCheck":false};
 var someoneIsCheckmate = false;
@@ -233,5 +234,5 @@ function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
 //  Call the functions to create the board
 // ---
 createBoard();
-createCoordinates();
 createListeners();
+createCoordinates();
