@@ -148,6 +148,7 @@ function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
     lastSquareHiglighted.removeChild(pieceToMove);
     const startSquare_id = parseInt(lastSquareHiglighted.getAttribute("square_id"), 10);
     const square_id = parseInt(clickedSquare.getAttribute("square_id"), 10);
+    var soundEvent = "movePiece";
     if(pieceInside == null) {
         clickedSquare.appendChild(pieceToMove);
         // Secial moves
@@ -158,11 +159,13 @@ function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
                 const squareToRemove = gameBoard.querySelector(`[square_id="${isEnPassantIdToRemove}"]`);
                 squareToRemove.removeChild(squareToRemove.firstChild);
                 notation_isEnPassant = " e.p.";
+                soundEvent = "takePiece";
             }
             if((pieceToMove.classList.contains("black"))&&(isEnPassantIdToRemove==square_id-8) ) {
                 const squareToRemove = gameBoard.querySelector(`[square_id="${isEnPassantIdToRemove}"]`);
                 squareToRemove.removeChild(squareToRemove.firstChild);
                 notation_isEnPassant = " e.p.";
+                soundEvent = "takePiece";
             }
             isEnPassantIdToRemove = false;
         }
@@ -176,6 +179,7 @@ function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
                     const square59 = gameBoard.querySelector(`[square_id="${59}"]`);
                     square59.appendChild(rookToMove);
                     notation_isCastle = "O-O-O";
+                    soundEvent = "castle";
                 }
                 else if(startSquare_id==60 && square_id==62) {
                     const square63 = gameBoard.querySelector(`[square_id="${63}"]`);
@@ -184,6 +188,7 @@ function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
                     const square61 = gameBoard.querySelector(`[square_id="${61}"]`);
                     square61.appendChild(rookToMove);
                     notation_isCastle = "O-O";
+                    soundEvent = "castle";
                 }
             }
             if(pieceToMove.classList.contains("black")) {
@@ -194,6 +199,7 @@ function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
                     const square3 = gameBoard.querySelector(`[square_id="${3}"]`);
                     square3.appendChild(rookToMove);
                     notation_isCastle = "O-O-O";
+                    soundEvent = "castle";
                 }
                 else if(startSquare_id==4 && square_id==6) {
                     const square7 = gameBoard.querySelector(`[square_id="${7}"]`);
@@ -202,6 +208,7 @@ function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
                     const square5 = gameBoard.querySelector(`[square_id="${5}"]`);
                     square5.appendChild(rookToMove);
                     notation_isCastle = "O-O";
+                    soundEvent = "castle";
                 }
             }
         }
@@ -210,6 +217,7 @@ function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
         clickedSquare.removeChild(clickedSquare.firstChild);
         clickedSquare.appendChild(pieceToMove);
         notation_isTake = "x";
+        soundEvent = "takePiece";
     }
     // Special moves and variables
     if(pieceToMove.id=="king" && pieceToMove.classList.contains("black")) {blackKingHaveMoved = true;}
@@ -224,7 +232,9 @@ function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
     }
     hilightPlayedMove(lastSquareHiglighted, clickedSquare);
     check = findCheck(gameBoard);
+    if(check.isBlackInCheck||check.isWhiteInCheck) {soundEvent = "inCheck";}
     update_ui(pieceToMove,startSquare_id,square_id,notation_isTake,notation_isEnPassant,notation_isPawnTransformation,notation_isCastle);
+    playSound(soundEvent);
     if(playTurn=="white") {playTurn = "black";}
     else if(playTurn=="black") {playTurn = "white";}
 }
