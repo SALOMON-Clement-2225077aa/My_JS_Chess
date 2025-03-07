@@ -227,23 +227,25 @@ function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
     if(startSquare_id==7||square_id==7) {blackRook_columnH_HaveMoved = true;}
     if(startSquare_id==56||square_id==56) {whiteRook_columnA_HaveMoved = true;}
     if(startSquare_id==63||square_id==63) {whiteRook_columnH_HaveMoved = true;}
-    if ((pieceToMove.id=="pawn")&&(((pieceToMove.classList.contains("black"))&&(square_id>=56))||(pieceToMove.classList.contains("white"))&&(square_id<8))) {
-        pawnTransformation(clickedSquare, pieceToMove);
-        notation_isPawnTransformation = true;
-    }
     hilightPlayedMove(lastSquareHiglighted, clickedSquare);
     check = findCheck(gameBoard);
     if(check.isBlackInCheck||check.isWhiteInCheck) {soundEvent = "inCheck";}
     update_ui(pieceToMove,startSquare_id,square_id,notation_isTake,notation_isEnPassant,notation_isPawnTransformation,notation_isCastle);
     playSound(soundEvent);
-    if(opponent=="friend") {
-        if(playTurn=="white") {playTurn = "black";}
-        else if(playTurn=="black") {playTurn = "white";}
+    if ((pieceToMove.id=="pawn")&&(((pieceToMove.classList.contains("black"))&&(square_id>=56))||(pieceToMove.classList.contains("white"))&&(square_id<8))) {
+        pawnTransformation(clickedSquare, pieceToMove);
+        notation_isPawnTransformation = true;
     }
-    else if(opponent=="minimax") {
-        if(playTurn=="white") {
-            playTurn = "minimax";
-            minimax_makeMove();
+    else {
+        if(opponent=="friend") {
+            if(playTurn=="white") {playTurn = "black";}
+            else if(playTurn=="black") {playTurn = "white";}
+        }
+        else if(opponent=="minimax") {
+            if(playTurn=="white") {
+                playTurn = "minimax";
+                minimax_makeMove();
+            }
         }
     }
 }

@@ -80,7 +80,7 @@ function displayAlgebraicNotation(playTurn, algebraicNotation) {
         row.appendChild(blackMove);
         moveLog.appendChild(row);
     } 
-    else if (playTurn === "black") {
+    else if (playTurn === "black" || playTurn === "minimax") {
         var lastRow = moveLog.lastElementChild;
         if (lastRow) {
             var blackMove = lastRow.querySelector(".blackMove");
@@ -178,13 +178,13 @@ buttonGameMode.addEventListener("click", function() {
     if(confirmChange) {
         resetBoard();
         var ui_title = document.getElementById("ui_title");
-        if(ui_title.innerText == "Play against my MiniMax!") {
+        if(ui_title.innerText == "Play against random moves!") {
             ui_title.innerHTML = "Play against your friends!";
-            buttonGameMode.innerText = "Play against my MiniMax!";
+            buttonGameMode.innerText = "Play against random moves!";
             opponent = "friend";
         }
         else if (ui_title.innerText == "Play against your friends!") {
-            ui_title.innerHTML = "Play against my MiniMax!";
+            ui_title.innerHTML = "Play against random moves!";
             buttonGameMode.innerText = "Play against your friends!";
             opponent = "minimax";
         }
