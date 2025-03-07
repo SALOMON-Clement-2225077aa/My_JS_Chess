@@ -17,7 +17,7 @@ const buttonRotateBoard = document.getElementById("rotateBoard");
 const buttonRematch = document.getElementById("rematch");
 const buttonQuit = document.getElementById("quit");
 const buttonReset = document.getElementById("reset");
-const buttonIA = document.getElementById("switchGameMode");
+const buttonGameMode = document.getElementById("switchGameMode");
 
 var cptMoves = 0;
 
@@ -167,10 +167,34 @@ function displayPopUpEndGame(winner) {
 buttonQuit.addEventListener("click", function () {
     popup.style.display = "none";
 });
-buttonIA.addEventListener("click", function() {
-    alert("Coming Soon! :)");
+buttonGameMode.addEventListener("click", function() {
+    var confirmChange = false;
+    if(moveLog.hasChildNodes()) {
+        confirmChange = confirm("You're about to change opponent and reset the board?");
+    }
+    else {
+        confirmChange = true;
+    }
+    if(confirmChange) {
+        resetBoard();
+        var ui_title = document.getElementById("ui_title");
+        if(ui_title.innerText == "Play against my MiniMax!") {
+            ui_title.innerHTML = "Play against your friends!";
+            buttonGameMode.innerText = "Play against my MiniMax!";
+            opponent = "friend";
+        }
+        else if (ui_title.innerText == "Play against your friends!") {
+            ui_title.innerHTML = "Play against my MiniMax!";
+            buttonGameMode.innerText = "Play against your friends!";
+            opponent = "minimax";
+        }
+    }
 })
-buttonReset.addEventListener("click", resetBoard);
+buttonReset.addEventListener("click", function() {
+    if(confirm("You're about to reset the board?")) {
+        resetBoard();
+    }
+});
 buttonRematch.addEventListener("click", resetBoard);
 
 function resetVariables() {

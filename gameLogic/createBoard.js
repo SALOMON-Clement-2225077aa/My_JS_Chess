@@ -5,6 +5,7 @@ const gameBoard = document.querySelector('#gameBoard');
 const coordinatesBox = document.querySelector('#coordinatesBox');
 
 var playTurn = "white";
+var opponent = "minimax";
 var check = {"isBlackInCheck":false, "isWhiteInCheck":false};
 var someoneIsCheckmate = false;
 var lastSquareHiglighted = null;
@@ -235,8 +236,16 @@ function movePiece(lastSquareHiglighted, clickedSquare, pieceInside) {
     if(check.isBlackInCheck||check.isWhiteInCheck) {soundEvent = "inCheck";}
     update_ui(pieceToMove,startSquare_id,square_id,notation_isTake,notation_isEnPassant,notation_isPawnTransformation,notation_isCastle);
     playSound(soundEvent);
-    if(playTurn=="white") {playTurn = "black";}
-    else if(playTurn=="black") {playTurn = "white";}
+    if(opponent=="friend") {
+        if(playTurn=="white") {playTurn = "black";}
+        else if(playTurn=="black") {playTurn = "white";}
+    }
+    else if(opponent=="minimax") {
+        if(playTurn=="white") {
+            playTurn = "minimax";
+            minimax_makeMove();
+        }
+    }
 }
 
 
