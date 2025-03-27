@@ -1,18 +1,23 @@
-function minimax_makeMove() {
-    legalMovesForBot = getBotMoves();
-    var hasBotPlayed = minimax_playRandomLegalMove(legalMovesForBot);
+function minimax_makeMove(isRandom = true) {
+    if (isRandom) {
+        legalMovesForBot = getMoves("black");
+        var hasBotPlayed = playRandomLegalMove(legalMovesForBot);
+    }
+    else {
+        playMiniMax();
+    }
     if(hasBotPlayed) {
         playTurn = "white";
     }
 }
 
-function getBotMoves() {
+function getMoves(Pteam) {
     const allSquares = gameBoard.childNodes;
     var legalMovesForBot = [];
     allSquares.forEach(square => {
         const square_id = parseInt(square.getAttribute("square_id"), 10);
         const piece = getContentOfSquare(gameBoard, square_id);
-        if(piece != null && piece.team === "black") {
+        if(piece != null && piece.team === Pteam) {
             const pieceLegalMoves = getPieceLegalMoves(gameBoard, square_id, true);
             if(pieceLegalMoves.length > 0) {
                 legalMovesForBot.push({
@@ -25,7 +30,7 @@ function getBotMoves() {
     return legalMovesForBot;
 }
 
-function minimax_playRandomLegalMove(legalMovesForBot) {
+function playRandomLegalMove(legalMovesForBot) {
     if (legalMovesForBot.length === 0) {
         displayPopUpDraw();
         return false;
@@ -40,7 +45,10 @@ function minimax_playRandomLegalMove(legalMovesForBot) {
     return true;
 }
 
-
+function playMiniMax() {
+    const m = minimax(gameBoard, 3, true);
+    console.log(m);
+}
 
 function bot_movePiece(startSquare_id, endSquare_id) {
     var notation_isTake = "";
