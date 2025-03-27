@@ -1,7 +1,9 @@
 function minimax_makeMove() {
     legalMovesForBot = getBotMoves();
-    minimax_playRandomLegalMove(legalMovesForBot);
-    playTurn = "white";
+    var hasBotPlayed = minimax_playRandomLegalMove(legalMovesForBot);
+    if(hasBotPlayed) {
+        playTurn = "white";
+    }
 }
 
 function getBotMoves() {
@@ -24,7 +26,10 @@ function getBotMoves() {
 }
 
 function minimax_playRandomLegalMove(legalMovesForBot) {
-    if (legalMovesForBot.length === 0) return null;
+    if (legalMovesForBot.length === 0) {
+        displayPopUpDraw();
+        return false;
+    };
     const randomIndex = Math.floor(Math.random() * legalMovesForBot.length);
     const randomItem = legalMovesForBot[randomIndex];
 
@@ -32,6 +37,7 @@ function minimax_playRandomLegalMove(legalMovesForBot) {
     const randomValue = randomItem.value[randomValueIndex];
 
     bot_movePiece(randomItem.key, randomValue);
+    return true;
 }
 
 

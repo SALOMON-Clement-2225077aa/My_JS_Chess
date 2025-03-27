@@ -164,6 +164,15 @@ function displayPopUpEndGame(winner) {
     popup.style.display = "";
 }
 
+function displayPopUpDraw() {
+    const popupStyle = window.getComputedStyle(popup);
+    if(popupStyle.display=="none") {
+        const topDivWinnerName = document.querySelector('#winnerName');
+        topDivWinnerName.innerHTML = "it's a Draw !";
+        popup.style.display = "";
+    }
+}
+
 buttonQuit.addEventListener("click", function () {
     popup.style.display = "none";
 });
