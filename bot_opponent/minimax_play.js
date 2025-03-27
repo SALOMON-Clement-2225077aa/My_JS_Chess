@@ -1,6 +1,6 @@
 function minimax_makeMove(isRandom = true) {
     if (isRandom) {
-        legalMovesForBot = getMoves("black");
+        legalMovesForBot = getMoves(gameBoard, "black");
         var hasBotPlayed = playRandomLegalMove(legalMovesForBot);
     }
     else {
@@ -11,26 +11,27 @@ function minimax_makeMove(isRandom = true) {
     }
 }
 
-function getMoves(Pteam) {
-    const allSquares = gameBoard.childNodes;
-    var legalMovesForBot = [];
+function getMoves(b, Pteam) {
+    const allSquares = b.childNodes;
+    var legalMoves = [];
     allSquares.forEach(square => {
         const square_id = parseInt(square.getAttribute("square_id"), 10);
-        const piece = getContentOfSquare(gameBoard, square_id);
+        const piece = getContentOfSquare(b, square_id);
         if(piece != null && piece.team === Pteam) {
-            const pieceLegalMoves = getPieceLegalMoves(gameBoard, square_id, true);
+            const pieceLegalMoves = getPieceLegalMoves(b, square_id, true);
             if(pieceLegalMoves.length > 0) {
-                legalMovesForBot.push({
+                legalMoves.push({
                     key:   square_id,
                     value: pieceLegalMoves
                 });
             }
         }
     });
-    return legalMovesForBot;
+    return legalMoves;
 }
 
 function playRandomLegalMove(legalMovesForBot) {
+    console.log(minimax(gameBoard, 3, true));
     if (legalMovesForBot.length === 0) {
         displayPopUpDraw();
         return false;
@@ -46,8 +47,11 @@ function playRandomLegalMove(legalMovesForBot) {
 }
 
 function playMiniMax() {
-    const m = minimax(gameBoard, 3, true);
-    console.log(m);
+    const bestMove = minimax(gameBoard, 2, true);
+    console.log(bestMove.eval);
+    console.log(bestMove.move.from, bestMove.move.to);
+    bot_movePiece(bestMove.move.from, bestMove.move.to);
+    playTurn = "white";
 }
 
 function bot_movePiece(startSquare_id, endSquare_id) {

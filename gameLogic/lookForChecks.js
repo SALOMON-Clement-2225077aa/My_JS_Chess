@@ -13,6 +13,7 @@ function simulateMove(gameBoard, square_id, move_id) {
         fakeEndSquare.removeChild(fakeEndSquare.firstChild);
     }
     fakeEndSquare.appendChild(fakePieceToMove);
+    fakeBoard.lastMove = { from: square_id, to: move_id };
 
     return fakeBoard;
 }
