@@ -43,15 +43,44 @@ function staticEvaluation(b) {
 
     // calculating pieces value
     const Pvalues = {"rook":5,"knight":3,"bishop":3,"queen":9,"king":0,"pawn":1};
+    const zone_0 = [27, 28, 35, 36];
+    const zone_1 = [18, 19, 20, 21, 26, 29, 34, 37, 42, 43, 44, 45];
+    const zone_2 = [9, 10, 11, 12, 13, 14, 17, 22, 25, 30, 33, 38, 41, 46, 49, 50, 51, 52, 53, 54];
     allSquares.forEach(square => {
         const square_id = parseInt(square.getAttribute("square_id"), 10);
         const piece = getContentOfSquare(b, square_id);
         if(piece != null) {
             if(piece.team == "black") {
-                evaluation += parseInt(Pvalues[piece.name],10);
+                evaluation += parseInt(Pvalues[piece.name],10)*10;
+                if(piece.name == "king") {
+                    if(zone_0.includes(square_id)) {evaluation -= 10;}
+                    else if(zone_1.includes(square_id)) {evaluation -= 7;}
+                    else if(zone_2.includes(square_id)) {evaluation -= 4;}
+                    else {evaluation += 5;}
+                }
+                else {
+                    // Piece au centre :
+                    if(zone_0.includes(square_id)) {evaluation += 5;}
+                    else if(zone_1.includes(square_id)) {evaluation += 2;}
+                    else if(zone_2.includes(square_id)) {evaluation -= 2;}
+                    else {evaluation -= 5;}
+                }
             }
             if(piece.team == "white") {
-                evaluation -= parseInt(Pvalues[piece.name],10);
+                evaluation -= parseInt(Pvalues[piece.name],10)*10;
+                if(piece.name == "king") {
+                    if(zone_0.includes(square_id)) {evaluation += 10;}
+                    else if(zone_1.includes(square_id)) {evaluation += 7;}
+                    else if(zone_2.includes(square_id)) {evaluation += 4;}
+                    else {evaluation -= 5;}
+                }
+                else {
+                    // Piece au centre :
+                    if(zone_0.includes(square_id)) {evaluation -= 5;}
+                    else if(zone_1.includes(square_id)) {evaluation -= 2;}
+                    else if(zone_2.includes(square_id)) {evaluation += 2;}
+                    else {evaluation += 5;}
+                }
             }
         }
     });

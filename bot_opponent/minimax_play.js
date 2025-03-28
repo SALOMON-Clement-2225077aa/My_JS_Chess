@@ -1,4 +1,4 @@
-function minimax_makeMove(isRandom = true) {
+function minimax_makeMove(isRandom = false) {
     if (isRandom) {
         legalMovesForBot = getMoves(gameBoard, "black");
         var hasBotPlayed = playRandomLegalMove(legalMovesForBot);
@@ -31,7 +31,6 @@ function getMoves(b, Pteam) {
 }
 
 function playRandomLegalMove(legalMovesForBot) {
-    console.log(minimax(gameBoard, 3, true));
     if (legalMovesForBot.length === 0) {
         displayPopUpDraw();
         return false;
