@@ -46,9 +46,8 @@ function playRandomLegalMove(legalMovesForBot) {
 }
 
 function playMiniMax() {
-    const bestMove = minimax(gameBoard, 2, true);
+    const bestMove = minimax(gameBoard, 3, -Infinity, +Infinity, true);
     console.log(bestMove.eval);
-    console.log(bestMove.move.from, bestMove.move.to);
     bot_movePiece(bestMove.move.from, bestMove.move.to);
     playTurn = "white";
 }

@@ -187,13 +187,13 @@ buttonGameMode.addEventListener("click", function() {
     if(confirmChange) {
         resetBoard();
         var ui_title = document.getElementById("ui_title");
-        if(ui_title.innerText == "Play against random moves!") {
+        if(ui_title.innerText == "Play against Minimax!") {
             ui_title.innerHTML = "Play against your friends!";
-            buttonGameMode.innerText = "Play against random moves!";
+            buttonGameMode.innerText = "Play against Minimax!";
             opponent = "friend";
         }
         else if (ui_title.innerText == "Play against your friends!") {
-            ui_title.innerHTML = "Play against random moves!";
+            ui_title.innerHTML = "Play against Minimax!";
             buttonGameMode.innerText = "Play against your friends!";
             opponent = "minimax";
         }
